@@ -13,14 +13,33 @@ class Model
 {
 public:
 	Model();
-	Model(Camera * _Camera, GLuint _Program);
+	Model(char * _filename, Camera * _Camera, GLuint _Program);
 	~Model();
+
+	//Simple
 	void Render();
+
+	//Refresh Matrices
+	void RefreshMVP();
+	void RefreshModelMatrix();
+
+	//Translation
+	void SetTranslation(glm::vec3 _Translation);
+
+	//Rotation
+	void SetRotation(glm::vec3 _Rotation);
+
+	//Scale
+	void SetScale(glm::vec3 _Scale);
+	
 	void SetProgram(GLuint _Program);
 
 private:
-	GLuint m_Program;
-	Camera * m_pCamera;
+
+	//Texture
+	GLuint m_Texture;
+	int width = 200;
+	int height = 200;
 
 	//Matrices
 	glm::mat4 m_TranslationMatrix = glm::mat4();
@@ -29,10 +48,15 @@ private:
 	glm::mat4 m_ModelMatrix = glm::mat4();
 	glm::mat4 m_MVPMatrix = glm::mat4();
 
+	//Camera
+	Camera * m_Camera;
+
 	//Other Stuff
 	GLuint vbo;
 	GLuint vao;
 	GLuint ebo;
+	GLuint m_Program;
 	GLuint TempTexture;
+	ShaderLoader shaderloader;
 };
 

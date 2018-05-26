@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(500, 300);
 	glutInitWindowSize(SRCWIDTH, SRCHEIGHT);
-	glutCreateWindow("Thursday The Twelfth");
+	glutCreateWindow("Double Damage!");
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(Inputs);
 	glEnable(GL_MULTISAMPLE);
@@ -76,14 +76,18 @@ void init()
 	//GameManager::GetInstance()->SwitchScene(0);
 	ShaderLoader shaderloader;
 	GLuint MyProgram = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
-	MyPyramid = new Model(& MyCamera, MyProgram);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
+	MyPyramid = new Model("Textures/TempTexture.png", & MyCamera, MyProgram);
 	//---------------------------------------------------------------
 }
 
 // Render Function
 void render(void)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 0.0, 0.0, 1.0); // clear red
 	//GameManager::GetInstance()->render();
 	MyCamera.Update();
