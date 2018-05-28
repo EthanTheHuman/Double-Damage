@@ -47,7 +47,7 @@ public:
 	{
 
 		glUseProgram(program);
-
+		glEnable(GL_CULL_FACE);
 		
 		// Bind appropriate textures
 		GLuint diffuseNr = 1;

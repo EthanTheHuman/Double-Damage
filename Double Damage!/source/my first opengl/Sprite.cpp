@@ -154,6 +154,7 @@ Sprite::~Sprite()
 void Sprite::render()
 {
 	glUseProgram(m_Program);
+	glDisable(GL_CULL_FACE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	RefreshMVP();
 	glActiveTexture(GL_TEXTURE0);
