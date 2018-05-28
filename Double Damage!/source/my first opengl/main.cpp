@@ -15,7 +15,9 @@
 #include "Sound.h"
 #include "Sprite.h"
 #include "Model.h"
+#include "TextLabel.h"
 #include "Utils.h"
+#include "CubeMap.h"
 #include "dependencies\FMOD\fmod.hpp"
 
 // Namespace
@@ -30,6 +32,11 @@ Camera * MyCamera;
 Model * MyPyramid;
 Sprite * KarateGuy1;
 Sprite * KarateGuy2;
+<<<<<<< HEAD
+TextLabel * label;
+=======
+CubeMap * MySkybox;
+>>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
 
 enum InputState
 {
@@ -81,10 +88,16 @@ void init()
 	GLuint SpriteShader = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
 	GLuint ModelBasicShader = shaderloader.CreateProgram("Shaders/ModelBasic.vs", "Shaders/ModelBasic.fs");
 	GLuint TextShader = shaderloader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
+	GLuint SkyboxShader = shaderloader.CreateProgram("Shaders/Cubemap.vs", "Shaders/Cubemap.fs");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
+
+	label = new TextLabel("Sample Text",
+		"Fonts/arial.ttf", glm::vec2(100.0f, 100.0f));
+	label->SetScale(1.0f);
+	label->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
 	KarateGuy1 = new Sprite("Sprites/KarateGuy1.png", MyCamera, SpriteShader);
 	KarateGuy1->SetTranslation({ -1.5,0,0 });
@@ -92,10 +105,14 @@ void init()
 	KarateGuy2 = new Sprite("Sprites/KarateGuy2.png", MyCamera, SpriteShader);
 	//KarateGuy2->SetTranslation({ 1.5,0,0 });
 	KarateGuy2->SetTranslation({ -1.6,0,0.001 });
-	KarateGuy2->SetScale({ 0.5, 0.5, 0.5 });
+	KarateGuy2->SetScale({ -0.5, 0.5, 0.5 });
 	MyPyramid = new Model("Models/Tank/Tank.obj", MyCamera, ModelBasicShader);
 	MyPyramid->SetScale({ 0.5,0.5,0.5 });
+<<<<<<< HEAD
+=======
+	MySkybox = new CubeMap(MyCamera, SkyboxShader, "top.jpg", "bottom.jpg", "left.jpg", "right.jpg", "front.jpg", "back.jpg");
 	//---------------------------------------------------------------
+>>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
 }
 
 // Render Function
@@ -106,7 +123,13 @@ void render(void)
 	//GameManager::GetInstance()->render();
 	MyCamera->Update();
 	glFrontFace(GL_CCW);
+<<<<<<< HEAD
+=======
 
+	//Background
+	MySkybox->Render();
+
+>>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
 	//Render 3D objects
 	MyPyramid->Render();
 
@@ -114,7 +137,7 @@ void render(void)
 	KarateGuy2->render();
 	KarateGuy1->render();
 	KarateGuy2->render();
-
+	label->Render();
 	glutSwapBuffers();
 }
 

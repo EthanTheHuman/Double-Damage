@@ -1,3 +1,12 @@
+<<<<<<< HEAD
 ﻿  main.cpp
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+d:\users\brandon.van7367\documents\github\double-damage\double damage!\source\my first opengl\textlabel.h(10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  TextLabel.cpp
+d:\users\brandon.van7367\documents\github\double-damage\double damage!\source\my first opengl\textlabel.h(10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\users\brandon.van7367\documents\github\double-damage\double damage!\source\my first opengl\textlabel.cpp(61): warning C4838: conversion from 'FT_Pos' to 'GLuint' requires a narrowing conversion
+  Generating Code...
+  My First OpenGL.vcxproj -> D:\Users\brandon.van7367\Documents\GitHub\Double-Damage\Double Damage!\source\Debug\My First OpenGL.exe
+=======
+﻿  CubeMap.cpp
   My First OpenGL.vcxproj -> D:\Users\Ethan.Hop7668\Documents\GitHub\Double-Damage\Double Damage!\source\Debug\My First OpenGL.exe
+>>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
