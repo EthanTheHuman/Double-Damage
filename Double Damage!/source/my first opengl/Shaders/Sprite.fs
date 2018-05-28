@@ -10,6 +10,4 @@ uniform sampler2D SpriteTex;
 void main(void)
 {
 	color = texture(SpriteTex, fragTexCoord);
-	//color = texture(SpriteTex, fragTexCoord) * fragcolor;
-	//color = fragcolor;
 }

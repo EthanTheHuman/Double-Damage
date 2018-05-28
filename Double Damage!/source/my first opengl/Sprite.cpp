@@ -161,7 +161,7 @@ void Sprite::render()
 	glUniform1i(glGetUniformLocation(m_Program, "SpriteTex"), 0);
 	glBindVertexArray(vao);			// Bind VAO
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-//	glBindVertexArray(0);			// Unbind VAO
+	glBindVertexArray(0);			// Unbind VAO
 }
 
 void Sprite::RefreshMVP()

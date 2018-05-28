@@ -1,9 +1,9 @@
 #version 450 core
 layout (location = 0) in vec4 vertex; //( vec2:Position , TexCoords )
 
-out vec2 out vec2 out vec2 fragTexCoord fragTexCoord ;
+out vec2 fragTexCoord;
 
-uniform mat4 uniform mat4 proj ;
+uniform mat4 proj;
 
 void main()
 {

@@ -26,8 +26,10 @@ void init();
 void render(void);
 void update();
 void Inputs(unsigned char key, int x, int y);
-Camera MyCamera;
+Camera * MyCamera;
 Model * MyPyramid;
+Sprite * KarateGuy1;
+Sprite * KarateGuy2;
 
 enum InputState
 {
@@ -74,13 +76,25 @@ int main(int argc, char **argv)
 void init()
 {
 	//GameManager::GetInstance()->SwitchScene(0);
+	MyCamera = new Camera();
 	ShaderLoader shaderloader;
-	GLuint MyProgram = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
+	GLuint SpriteShader = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
+	GLuint ModelBasicShader = shaderloader.CreateProgram("Shaders/ModelBasic.vs", "Shaders/ModelBasic.fs");
+	GLuint TextShader = shaderloader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
-	MyPyramid = new Model("Textures/TempTexture.png", & MyCamera, MyProgram);
+
+	KarateGuy1 = new Sprite("Sprites/KarateGuy1.png", MyCamera, SpriteShader);
+	KarateGuy1->SetTranslation({ -1.5,0,0 });
+	KarateGuy1->SetScale({ 0.5,0.5,0 });
+	KarateGuy2 = new Sprite("Sprites/KarateGuy2.png", MyCamera, SpriteShader);
+	//KarateGuy2->SetTranslation({ 1.5,0,0 });
+	KarateGuy2->SetTranslation({ -1.6,0,0.001 });
+	KarateGuy2->SetScale({ 0.5, 0.5, 0.5 });
+	MyPyramid = new Model("Models/Tank/Tank.obj", MyCamera, ModelBasicShader);
+	MyPyramid->SetScale({ 0.5,0.5,0.5 });
 	//---------------------------------------------------------------
 }
 
@@ -90,8 +104,16 @@ void render(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 0.0, 0.0, 1.0); // clear red
 	//GameManager::GetInstance()->render();
-	MyCamera.Update();
+	MyCamera->Update();
+	glFrontFace(GL_CCW);
+
+	//Render 3D objects
 	MyPyramid->Render();
+
+	//Double-Render transparent objects
+	KarateGuy2->render();
+	KarateGuy1->render();
+	KarateGuy2->render();
 
 	glutSwapBuffers();
 }
