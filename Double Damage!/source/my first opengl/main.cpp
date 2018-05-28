@@ -37,8 +37,6 @@ TextLabel * label;
 
 CubeMap * MySkybox;
 
-CubeMap * MySkybox;
-
 enum InputState
 {
 	INPUT_FIRST_RELEASE,	// First frame of Up state
@@ -96,7 +94,7 @@ void init()
 	glFrontFace(GL_CW);
 
 	label = new TextLabel("Sample Text",
-		"Fonts/arial.ttf", glm::vec2(100.0f, 100.0f));
+		"Fonts/arial.ttf", glm::vec2(100.0f, 100.0f), TextShader);
 	label->SetScale(1.0f);
 	label->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
@@ -121,9 +119,6 @@ void render(void)
 	//GameManager::GetInstance()->render();
 	MyCamera->Update();
 	glFrontFace(GL_CCW);
-
-	//Background
-	MySkybox->Render();
 
 	//Background
 	MySkybox->Render();
