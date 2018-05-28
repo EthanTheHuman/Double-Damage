@@ -33,7 +33,11 @@ Model * MyPyramid;
 Sprite * KarateGuy1;
 Sprite * KarateGuy2;
 <<<<<<< HEAD
+<<<<<<< HEAD
 TextLabel * label;
+=======
+CubeMap * MySkybox;
+>>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
 =======
 CubeMap * MySkybox;
 >>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
@@ -109,7 +113,10 @@ void init()
 	MyPyramid = new Model("Models/Tank/Tank.obj", MyCamera, ModelBasicShader);
 	MyPyramid->SetScale({ 0.5,0.5,0.5 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "top.jpg", "bottom.jpg", "left.jpg", "right.jpg", "front.jpg", "back.jpg");
 	//---------------------------------------------------------------
 >>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
@@ -126,6 +133,12 @@ void render(void)
 <<<<<<< HEAD
 =======
 
+	//Background
+	MySkybox->Render();
+
+<<<<<<< HEAD
+>>>>>>> 95d07e56588cc16eca9800c67081300d4959e3f8
+=======
 	//Background
 	MySkybox->Render();
 
