@@ -104,9 +104,14 @@ void init()
 	KarateGuy2 = new Sprite("Sprites/KarateGuy2.png", MyCamera, SpriteShader);
 	//KarateGuy2->SetTranslation({ 1.5,0,0 });
 	KarateGuy2->SetTranslation({ -1.6,0,0.001 });
-	KarateGuy2->SetScale({ -0.5, 0.5, 0.5 });
-	MyPyramid = new Model("Models/Tank/Tank.obj", MyCamera, ModelBasicShader);
-	MyPyramid->SetScale({ 0.5,0.5,0.5 });
+	KarateGuy2->SetScale({ -0.5f , 0.5f , 0.5f });
+	//MyPyramid = new Model("Models/UFO/Low_poly_UFO.obj", MyCamera, ModelBasicShader);
+	//MyPyramid->SetTranslation({ 0, -1, 0 });
+	//MyPyramid->SetScale({ 0.05f, 0.05f, 0.05f });
+
+	MyPyramid = new Model("Models/h2f2obj/f.obj", MyCamera, ModelBasicShader);
+	MyPyramid->SetScale({ 0.5f, 0.5f, 0.5f });
+
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "top.jpg", "bottom.jpg", "left.jpg", "right.jpg", "front.jpg", "back.jpg");
 	//---------------------------------------------------------------
 }
