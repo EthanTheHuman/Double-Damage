@@ -109,8 +109,8 @@ void init()
 	//MyPyramid->SetTranslation({ 0, -1, 0 });
 	//MyPyramid->SetScale({ 0.05f, 0.05f, 0.05f });
 
-	MyPyramid = new Model("Models/h2f2obj/f.obj", MyCamera, ModelBasicShader);
-	MyPyramid->SetScale({ 0.5f, 0.5f, 0.5f });
+	MyPyramid = new Model("Models/Wraith Raider Starship/Wraith Raider Starship.obj", MyCamera, ModelBasicShader);
+	MyPyramid->SetScale({ 0.005f, 0.005f, 0.005f });
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "top.jpg", "bottom.jpg", "left.jpg", "right.jpg", "front.jpg", "back.jpg");
 	//---------------------------------------------------------------
@@ -132,9 +132,9 @@ void render(void)
 	MyPyramid->Render();
 
 	//Double-Render transparent objects
-	KarateGuy2->render();
-	KarateGuy1->render();
-	KarateGuy2->render();
+	//KarateGuy2->render();
+	//KarateGuy1->render();
+	//KarateGuy2->render();
 	label->Render();
 	glutSwapBuffers();
 }
