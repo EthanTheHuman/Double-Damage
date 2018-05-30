@@ -154,6 +154,7 @@ Sprite::~Sprite()
 void Sprite::render()
 {
 	glUseProgram(m_Program);
+	glDisable(GL_CULL_FACE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	RefreshMVP();
 	glActiveTexture(GL_TEXTURE0);
@@ -161,7 +162,7 @@ void Sprite::render()
 	glUniform1i(glGetUniformLocation(m_Program, "SpriteTex"), 0);
 	glBindVertexArray(vao);			// Bind VAO
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-//	glBindVertexArray(0);			// Unbind VAO
+	glBindVertexArray(0);			// Unbind VAO
 }
 
 void Sprite::RefreshMVP()

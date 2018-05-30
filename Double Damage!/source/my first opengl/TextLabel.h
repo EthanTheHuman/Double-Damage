@@ -11,7 +11,7 @@
 #include "Utils.h"
 
 #include <ft2build.h>
-#include FT_FREETYPE_H  
+#include FT_FREETYPE_H
 
 #include <map>
 #include <string>
@@ -19,15 +19,15 @@
 
 struct Character
 {
-	GLuint        TextureID;	// Texture ID 
-	glm::ivec2  Size;	// Size of glyph
-	glm::ivec2  Bearing;	// Positon of glyph 
-	GLuint        Advance;	// How far to move for the next character
+	GLuint			TextureID;	// Texture ID 
+	glm::ivec2		Size;	// Size of glyph
+	glm::ivec2		Bearing;	// Positon of glyph 
+	GLuint			Advance;	// How far to move for the next character
 };
 
 class TextLabel {
 public:
-	TextLabel(std::string text, std::string font, glm::vec2 pos);
+	TextLabel(std::string text, std::string font, glm::vec2 pos, GLuint program);
 	//~TextLabel();
 
 	void Render();

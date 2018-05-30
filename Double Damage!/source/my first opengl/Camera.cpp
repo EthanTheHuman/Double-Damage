@@ -34,7 +34,7 @@ void Camera::Update()
 {
 	float currentTime = glutGet(GLUT_ELAPSED_TIME);
 	currentTime = currentTime * 0.001f;
-	SetCameraPosition({ (sin(currentTime) * 2),  1,  (cos(currentTime) * 2) });
+	SetCameraPosition({ (sin(currentTime) * 5),  1,  (cos(currentTime) * 5) });
 	SetViewMatrix();
 	SetProjectionMatrix();
 	LookAt();
@@ -65,10 +65,10 @@ void Camera::SetProjectionMatrix()
 	float HalfWidth = SourceWidth / 2;
 	float HalfHeight = SourceHeight / 2;
 	m_ProjectionMatrix = glm::perspective(
-		90.0f,									//Field of View
+		45.0f,									//Field of View
 		(float)SRCWIDTH / (float) SRCHEIGHT,	//Aspect ratio
 		0.1f,									//Near cutoff
-		100.f									//Far cutoff
+		5000.0f									//Far cutoff
 	);
 }
 
