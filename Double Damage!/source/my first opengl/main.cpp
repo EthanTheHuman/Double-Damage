@@ -102,12 +102,9 @@ void init()
 	KarateGuy1->SetTranslation({ -1.5,0,0 });
 	KarateGuy1->SetScale({ 0.5,0.5,0 });
 	KarateGuy2 = new Sprite("Sprites/KarateGuy2.png", MyCamera, SpriteShader);
-	//KarateGuy2->SetTranslation({ 1.5,0,0 });
+
 	KarateGuy2->SetTranslation({ -1.6,0,0.001 });
 	KarateGuy2->SetScale({ -0.5f , 0.5f , 0.5f });
-	//MyPyramid = new Model("Models/UFO/Low_poly_UFO.obj", MyCamera, ModelBasicShader);
-	//MyPyramid->SetTranslation({ 0, -1, 0 });
-	//MyPyramid->SetScale({ 0.05f, 0.05f, 0.05f });
 
 	MyPyramid = new Model("Models/Wraith Raider Starship/Wraith Raider Starship.obj", MyCamera, ModelBasicShader);
 	MyPyramid->SetScale({ 0.005f, 0.005f, 0.005f });
@@ -132,9 +129,10 @@ void render(void)
 	MyPyramid->Render();
 
 	//Double-Render transparent objects
-	//KarateGuy2->render();
-	//KarateGuy1->render();
-	//KarateGuy2->render();
+	KarateGuy2->render();
+	KarateGuy1->render();
+	KarateGuy2->render();
+
 	label->Render();
 	glutSwapBuffers();
 }

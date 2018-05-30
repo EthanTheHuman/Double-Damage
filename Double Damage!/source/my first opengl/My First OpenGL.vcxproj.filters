@@ -46,6 +46,12 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{20f441e3-094f-4925-a632-b01c7c3b5269}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{a9861b60-585c-4906-b304-97a7278df011}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NetWork">
+      <UniqueIdentifier>{89b990c0-5283-4913-b3cc-c64579d9a701}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +86,18 @@
     </ClCompile>
     <ClCompile Include="CubeMap.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="client.cpp">
+      <Filter>Source Files\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>Source Files\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp">
+      <Filter>Source Files\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="socket.cpp">
+      <Filter>Source Files\NetWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +136,24 @@
     </ClInclude>
     <ClInclude Include="CubeMap.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="client.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="networkentity.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="server.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="socket.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkQueue.h">
+      <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
