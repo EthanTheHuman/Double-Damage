@@ -18,6 +18,7 @@
 //Local Includes
 #include "utils.h"
 #include "network.h"
+#include "consoletools.h"
 #include "socket.h"
 
 
@@ -41,7 +42,7 @@ CServer::~CServer()
 
 	delete m_pWorkQueue;
 	m_pWorkQueue = 0;
-	
+
 	delete[] m_pcPacketData;
 	m_pcPacketData = 0;
 }
@@ -49,7 +50,7 @@ CServer::~CServer()
 bool CServer::Initialise()
 {
 	m_pcPacketData = new char[MAX_MESSAGE_LENGTH];
-	
+
 	//Create a work queue to distribute messages between the main  thread and the receive thread.
 	m_pWorkQueue = new CWorkQueue<char*>();
 
@@ -57,7 +58,7 @@ bool CServer::Initialise()
 	m_pServerSocket = new CSocket();
 
 	//Get the port number to bind the socket to
-	unsigned short _usServerPort = DEFAULT_SERVER_PORT;
+	unsigned short _usServerPort = QueryPortNumber(DEFAULT_SERVER_PORT);
 
 	//Initialise the socket to the local loop back address and port number
 	if (!m_pServerSocket->Initialise(_usServerPort))
@@ -66,7 +67,7 @@ bool CServer::Initialise()
 	}
 
 	//Qs 2: Create the map to hold details of all connected clients
-	m_pConnectedClients = new std::map < std::string, TClientDetails >() ;
+	m_pConnectedClients = new std::map < std::string, TClientDetails >();
 
 	return true;
 }
@@ -74,11 +75,11 @@ bool CServer::Initialise()
 bool CServer::AddClient(std::string _strClientName)
 {
 	//TO DO : Add the code to add a client to the map here...
-	
+
 	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 	{
 		//Check to see that the client to be added does not already exist in the map, 
-		if(it->first == ToString(m_ClientAddress))
+		if (it->first == ToString(m_ClientAddress))
 		{
 			return false;
 		}
@@ -94,14 +95,14 @@ bool CServer::AddClient(std::string _strClientName)
 	_clientToAdd.m_ClientAddress = this->m_ClientAddress;
 
 	std::string _strAddress = ToString(m_ClientAddress);
-	m_pConnectedClients->insert(std::pair < std::string, TClientDetails > (_strAddress, _clientToAdd));
+	m_pConnectedClients->insert(std::pair < std::string, TClientDetails >(_strAddress, _clientToAdd));
 	return true;
 }
 
 bool CServer::SendData(char* _pcDataToSend)
 {
 	int _iBytesToSend = (int)strlen(_pcDataToSend) + 1;
-	
+
 	int iNumBytes = sendto(
 		m_pServerSocket->GetSocketHandle(),				// socket to send through.
 		_pcDataToSend,									// data to send
@@ -109,7 +110,7 @@ bool CServer::SendData(char* _pcDataToSend)
 		0,												// flags
 		reinterpret_cast<sockaddr*>(&m_ClientAddress),	// address to be filled with packet target
 		sizeof(m_ClientAddress)							// size of the above address struct.
-		);
+	);
 	//iNumBytes;
 	if (_iBytesToSend != iNumBytes)
 	{
@@ -121,7 +122,7 @@ bool CServer::SendData(char* _pcDataToSend)
 
 void CServer::ReceiveData(char* _pcBufferToReceiveData)
 {
-	
+
 	int iSizeOfAdd = sizeof(m_ClientAddress);
 	int _iNumOfBytesReceived;
 	int _iPacketSize;
@@ -152,14 +153,14 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 			strcpy_s(_pcBufferToReceiveData, _iPacketSize, _buffer);
 			char _IPAddress[100];
 			inet_ntop(AF_INET, &m_ClientAddress.sin_addr, _IPAddress, sizeof(_IPAddress));
-			
+
 			std::cout << "Server Received \"" << _pcBufferToReceiveData << "\" from " <<
 				_IPAddress << ":" << ntohs(m_ClientAddress.sin_port) << std::endl;
 			//Push this packet data into the WorkQ
 			m_pWorkQueue->push(_pcBufferToReceiveData);
 		}
 		//std::this_thread::yield();
-		
+
 	} //End of while (true)
 }
 
@@ -198,7 +199,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 				{
 					m_ClientAddress = it->second.m_ClientAddress;
 					std::string stringtemp = "Client" + ToString(_packetRecvd.MessageContent) + " Connected";
-					strcpy(c, stringtemp.c_str());
+					strcpy_s(c, stringtemp.c_str());
 					_packetToSend.Serialize(DATA, c);
 					SendData(_packetToSend.PacketData);
 				}
@@ -210,7 +211,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 			{
 				if (it->first != ToString(m_ClientAddress))
 				{
-					strcpy(c, it->second.m_strName.c_str());
+					strcpy_s(c, it->second.m_strName.c_str());
 					_packetToSend.Serialize(DATA, c);
 					SendData(_packetToSend.PacketData);
 				}
@@ -233,7 +234,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 				for (auto It = m_pConnectedClients->begin(); It != m_pConnectedClients->end(); ++It)
 				{
 					std::string stringtemp = ToString(it->second.m_strName) + ">" + ToString(_packetRecvd.MessageContent);
-					strcpy(c, stringtemp.c_str());
+					strcpy_s(c, stringtemp.c_str());
 					_packetToSend.Serialize(DATA, c);
 					m_ClientAddress = It->second.m_ClientAddress;
 					SendData(_packetToSend.PacketData);

@@ -21,6 +21,7 @@
 
 //Local Includes
 #include "utils.h"
+#include "consoletools.h"
 #include "network.h"
 #include "networkentity.h"
 #include "socket.h"
@@ -55,7 +56,7 @@ CClient::~CClient()
 
 /***********************
 * Initialise: Initialises a client object by creating a client socket and filling out the socket address structure with details of server to send the data to.
-* @author: 
+* @author:
 * @parameter: none
 * @return: void
 ********************/
@@ -84,9 +85,9 @@ bool CClient::Initialise()
 
 	//Create a socket object
 	m_pClientSocket = new CSocket();
-	
+
 	//Get the port number to bind the socket to
-	unsigned short _usClientPort = DEFAULT_CLIENT_PORT;
+	unsigned short _usClientPort = QueryPortNumber(DEFAULT_CLIENT_PORT);
 	//Initialise the socket to the port number
 	if (!m_pClientSocket->Initialise(_usClientPort))
 	{
@@ -101,6 +102,12 @@ bool CClient::Initialise()
 
 	do {
 #pragma region _GETSERVER_
+		unsigned char _ucChoice = QueryOption("Do you want to broadcast for servers or manually connect (B/M)?", "BM");
+
+		switch (_ucChoice)
+		{
+		case 'B':
+		{
 			//Question 7: Broadcast to detect server
 			m_bDoBroadcast = true;
 			m_pClientSocket->EnableBroadcast();
@@ -131,20 +138,59 @@ bool CClient::Initialise()
 			m_bDoBroadcast = false;
 			m_pClientSocket->DisableBroadcast();
 			break;
+		}
+		case 'M':
+		{
+			std::cout << "Enter server IP or empty for localhost: ";
+
+			gets_s(_cServerIPAddress);
+			if (_cServerIPAddress[0] == 0)
+			{
+				strcpy_s(_cServerIPAddress, "127.0.0.1");
+			}
+			//Get the Port Number of the server
+			std::cout << "Enter server's port number or empty for default server port: ";
+			gets_s(_cServerPort);
+			//std::cin >> _usServerPort;
+
+			if (_cServerPort[0] == 0)
+			{
+				_usServerPort = DEFAULT_SERVER_PORT;
+			}
+			else
+			{
+				_usServerPort = atoi(_cServerPort);
+			}
+			//Fill in the details of the server's socket address structure.
+			//This will be used when stamping address on outgoing packets
+			m_ServerSocketAddress.sin_family = AF_INET;
+			m_ServerSocketAddress.sin_port = htons(_usServerPort);
+			inet_pton(AF_INET, _cServerIPAddress, &m_ServerSocketAddress.sin_addr);
+			_bServerChosen = true;
+			std::cout << "Attempting to connect to server at " << _cServerIPAddress << ":" << _usServerPort << std::endl;
+			break;
+		}
+		default:
+		{
+			std::cout << "This is not a valid option" << std::endl;
+			return false;
+			break;
+		}
+		}
 #pragma endregion _GETSERVER_
 
 	} while (_bServerChosen == false);
 
 	//Send a hanshake message to the server as part of the Client's Initialization process.
 	//Step1: Create a handshake packet
-	
-	do{
+
+	do {
 		std::cout << "Please enter a username: ";
 		gets_s(_cUserName);
 	} while (_cUserName[0] == 0);
 
 	TPacket _packet;
-	_packet.Serialize(HANDSHAKE, _cUserName); 
+	_packet.Serialize(HANDSHAKE, _cUserName);
 	SendData(_packet.PacketData);
 	return true;
 }
@@ -231,7 +277,7 @@ void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
 bool CClient::SendData(char* _pcDataToSend)
 {
 	int _iBytesToSend = (int)strlen(_pcDataToSend) + 1;
-	
+
 	char _RemoteIP[MAX_ADDRESS_LENGTH];
 	inet_ntop(AF_INET, &m_ServerSocketAddress.sin_addr, _RemoteIP, sizeof(_RemoteIP));
 	//std::cout << "Trying to send " << _pcDataToSend << " to " << _RemoteIP << ":" << ntohs(m_ServerSocketAddress.sin_port) << std::endl;
@@ -245,7 +291,7 @@ bool CClient::SendData(char* _pcDataToSend)
 		0,												// flags
 		reinterpret_cast<sockaddr*>(&m_ServerSocketAddress),	// address to be filled with packet target
 		sizeof(m_ServerSocketAddress)							// size of the above address struct.
-		);
+	);
 	//iNumBytes;
 	if (_iBytesToSend != iNumBytes)
 	{
@@ -258,16 +304,16 @@ bool CClient::SendData(char* _pcDataToSend)
 void CClient::ReceiveData(char* _pcBufferToReceiveData)
 {
 	sockaddr_in _FromAddress; // Make a local variable to extract the IP and port number of the sender from whom we are receiving
-	//In this case; it should be the details of the server; since the client only ever receives from the server
+							  //In this case; it should be the details of the server; since the client only ever receives from the server
 	int iSizeOfAdd = sizeof(_FromAddress);
 	int _iNumOfBytesReceived;
-	
+
 	//Receive data into a local buffer
 	char _buffer[MAX_MESSAGE_LENGTH];
 	//For debugging purpose only, convert the Address structure to a string.
 	char _pcAddress[50];
 	ZeroMemory(&_pcAddress, 50);
-	while(m_bOnline)
+	while (m_bOnline)
 	{
 		// pull off the packet(s) using recvfrom()
 		_iNumOfBytesReceived = recvfrom(			// pulls a packet from a single source...
@@ -277,7 +323,7 @@ void CClient::ReceiveData(char* _pcBufferToReceiveData)
 			0,										// flags
 			reinterpret_cast<sockaddr*>(&_FromAddress),	// address to be filled with packet source
 			&iSizeOfAdd								// size of the above address struct.
-			);
+		);
 		inet_ntop(AF_INET, &_FromAddress, _pcAddress, sizeof(_pcAddress));
 
 		if (_iNumOfBytesReceived < 0)

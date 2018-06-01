@@ -18,7 +18,7 @@
 #include <windows.h>
 #include <iostream>
 
-//Local Includes 
+//Local Includes
 #include "network.h"
 
 //This Include

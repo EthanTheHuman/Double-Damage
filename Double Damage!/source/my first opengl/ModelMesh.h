@@ -7,7 +7,7 @@
 using namespace std;
 // GL Includes
 
-#include "Utils.h"
+#include "Utils2.h"
 #include "Camera.h"
 
 struct Vertex {

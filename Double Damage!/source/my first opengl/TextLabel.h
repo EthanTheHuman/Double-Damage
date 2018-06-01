@@ -8,7 +8,7 @@
 #include <gtc\type_ptr.hpp>
 
 #include "ShaderLoader.h";
-#include "Utils.h"
+#include "Utils2.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H

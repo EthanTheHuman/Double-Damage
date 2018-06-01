@@ -136,11 +136,14 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="client.cpp" />
+    <ClCompile Include="consoletools.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="inputlinebuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="network.cpp" />
+    <ClCompile Include="networkmain.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
@@ -153,9 +156,11 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="client.h" />
+    <ClInclude Include="consoletools.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="InputLineBuffer.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="network.h" />
@@ -167,7 +172,8 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextLabel.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="Utils2.h" />
     <ClInclude Include="WorkQueue.h" />
   </ItemGroup>
   <ItemGroup>

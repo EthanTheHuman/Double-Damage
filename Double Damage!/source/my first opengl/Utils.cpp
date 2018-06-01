@@ -1,36 +1,36 @@
-#include "Utils.h"
+#include "Utils2.h"
 
 
-Utils::Utils()
+Utils2::Utils2()
 {
 }
 
 
-Utils::~Utils()
+Utils2::~Utils2()
 {
 }
 
-PositionStruct Utils::CreatePositionStruct()
+PositionStruct Utils2::CreatePositionStruct()
 {
 	return PositionStruct();
 }
 
-void Utils::CreateTexCoordStruct()
+void Utils2::CreateTexCoordStruct()
 {
 }
 
-void Utils::CreateVertexFormatStruct()
+void Utils2::CreateVertexFormatStruct()
 {
 }
 
-void Utils::CreateIndexFormatStruct()
+void Utils2::CreateIndexFormatStruct()
 {
 }
 
-void Utils::SetQuadVertices()
+void Utils2::SetQuadVertices()
 {
 }
 
-void Utils::SetResolution()
+void Utils2::SetResolution()
 {
 }

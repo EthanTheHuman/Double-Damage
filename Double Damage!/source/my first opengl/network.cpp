@@ -19,6 +19,7 @@
 
 //Local Includes
 #include "utils.h"
+#include "consoletools.h"
 #include "server.h"
 #include "client.h"
 
@@ -49,20 +50,20 @@ CNetwork::Initialise(EEntityType _eType)
 	switch (_eType)
 	{
 	case CLIENT:
-		{
-			m_pNetworkEntity = new CClient();
-			break;
-		}
+	{
+		m_pNetworkEntity = new CClient();
+		break;
+	}
 	case SERVER:
-		{
-			m_pNetworkEntity = new CServer();
-			break;
-		}
+	{
+		m_pNetworkEntity = new CServer();
+		break;
+	}
 	default:
-		{
-			//Add some error handling in here
-			break;
-		}
+	{
+		//Add some error handling in here
+		break;
+	}
 	}
 	VALIDATE(m_pNetworkEntity->Initialise());
 	return (true);
@@ -73,7 +74,7 @@ CNetwork::StartUp()
 {
 	// startup windows sockets:
 	WSADATA wsaData;
-	int _iError; 
+	int _iError;
 	if (WSAStartup(0x0202, &wsaData) != 0)
 	{
 		_iError = WSAGetLastError();
