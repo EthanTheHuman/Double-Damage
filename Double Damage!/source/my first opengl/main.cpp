@@ -26,8 +26,10 @@ using namespace std;
 // Functions
 void init();
 void render(void);
+
 void Keyboard_Down(unsigned char key, int x, int y);
 void Keyboard_Up(unsigned char key, int x, int y);
+
 void update();
 Camera * MyCamera;
 Model * MyPyramid;
@@ -138,7 +140,9 @@ void update()
 {
 	glutPostRedisplay();
 	//Updated Move Function
-	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
+
+	//PROBLEM BELLOW
+	//GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
 }
 
 //Updated Keyboard Functions
