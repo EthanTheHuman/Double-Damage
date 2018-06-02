@@ -1,17 +1,3 @@
-//
-// Bachelor of Software Engineering
-// Media Design School
-// Auckland
-// New Zealand
-//
-// (c) 2015 Media Design School
-//
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
-
 //Library Includes
 #include <Windows.h>
 #include <cassert>

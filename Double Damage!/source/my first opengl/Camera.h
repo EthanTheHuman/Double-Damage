@@ -10,6 +10,13 @@
 #include <iterator>
 #include <map>
 
+enum InputState {
+	INPUT_FIRST_RELEASE, // First frame of Up state
+	INPUT_RELEASED, // Default State (Up)
+	INPUT_FIRST_PRESS, // First frame of Down state
+	INPUT_HOLD, // Key is held Down
+};
+
 class Camera
 {
 public:

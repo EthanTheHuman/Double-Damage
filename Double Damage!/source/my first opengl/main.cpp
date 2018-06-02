@@ -32,20 +32,13 @@ Camera * MyCamera;
 Model * MyPyramid;
 Sprite * KarateGuy1;
 Sprite * KarateGuy2;
+GameManager Manager;
 
 TextLabel * label;
 
 CubeMap * MySkybox;
 
-enum InputState
-{
-	INPUT_FIRST_RELEASE,	// First frame of Up state
-	INPUT_RELEASED,			// Default State (Up)
-	INPUT_FIRST_PRESS,		// First frame of Down state
-	INPUT_HOLD,				// Key is held Down
-};
-
-	// Global
+unsigned char KeyState[255]; // Global
 
 // Main function
 int main(int argc, char **argv)
@@ -57,8 +50,11 @@ int main(int argc, char **argv)
 	glutInitWindowPosition(500, 300);
 	glutInitWindowSize(SRCWIDTH, SRCHEIGHT);
 	glutCreateWindow("Double Damage!");
-	glutIgnoreKeyRepeat(1);
-	glutKeyboardFunc(Inputs);
+
+	//Updated Keyboard Functions
+	glutKeyboardFunc(Keyboard_Down);
+	glutKeyboardUpFunc(Keyboard_Up);
+
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -129,9 +125,9 @@ void render(void)
 	MyPyramid->Render();
 
 	//Double-Render transparent objects
-	KarateGuy2->render();
-	KarateGuy1->render();
-	KarateGuy2->render();
+	//KarateGuy2->render();
+	//KarateGuy1->render();
+	//KarateGuy2->render();
 
 	label->Render();
 	glutSwapBuffers();
@@ -141,26 +137,10 @@ void render(void)
 void update()
 {
 	glutPostRedisplay();
+	//Updated Move Function
+	Manager.GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
 }
 
-void Inputs(unsigned char key, int x, int y)
-{
-	unsigned char KeyState[255];
-	KeyState[key] = INPUT_HOLD;
-	if (KeyState[(unsigned char)'w'] == INPUT_HOLD)
-	{
-		GameManager::GetInstance()->CurrentSceneClass()->w();
-	}
-	else if (KeyState[(unsigned char)'s'] == INPUT_HOLD)
-	{
-		GameManager::GetInstance()->CurrentSceneClass()->s();
-	}
-	else if (KeyState[(unsigned char)'a'] == INPUT_HOLD)
-	{
-		GameManager::GetInstance()->CurrentSceneClass()->a();
-	}
-	else if (KeyState[(unsigned char)'d'] == INPUT_HOLD)
-	{
-		GameManager::GetInstance()->CurrentSceneClass()->d();
-	}
-}
+//Updated Keyboard Functions
+void Keyboard_Down(unsigned char key, int x, int y) { KeyState[key] = INPUT_HOLD; }
+void Keyboard_Up(unsigned char key, int x, int y) { KeyState[key] = INPUT_RELEASED; }
