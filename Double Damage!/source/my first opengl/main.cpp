@@ -26,13 +26,13 @@ using namespace std;
 // Functions
 void init();
 void render(void);
+void Keyboard_Down(unsigned char key, int x, int y);
+void Keyboard_Up(unsigned char key, int x, int y);
 void update();
-void Inputs(unsigned char key, int x, int y);
 Camera * MyCamera;
 Model * MyPyramid;
 Sprite * KarateGuy1;
 Sprite * KarateGuy2;
-GameManager Manager;
 
 TextLabel * label;
 
@@ -138,7 +138,7 @@ void update()
 {
 	glutPostRedisplay();
 	//Updated Move Function
-	Manager.GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
+	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
 }
 
 //Updated Keyboard Functions
