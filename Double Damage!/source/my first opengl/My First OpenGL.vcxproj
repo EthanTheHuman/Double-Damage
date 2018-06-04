@@ -144,11 +144,8 @@
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="network.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="networkmain.cpp" />
     <ClCompile Include="Player.cpp" />
-=======
->>>>>>> ba1805e24f387a6e2e9111d00bc681eee0bfa4b4
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
