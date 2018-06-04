@@ -102,9 +102,6 @@
     <ClCompile Include="consoletools.cpp">
       <Filter>Source Files\NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="networkmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="inputlinebuffer.cpp">
       <Filter>Source Files\NetWork</Filter>
     </ClCompile>

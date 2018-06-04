@@ -143,7 +143,6 @@
     <ClCompile Include="inputlinebuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="network.cpp" />
-    <ClCompile Include="networkmain.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
