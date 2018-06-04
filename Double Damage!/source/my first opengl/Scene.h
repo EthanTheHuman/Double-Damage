@@ -8,6 +8,7 @@ public:
 	Scene();
 	~Scene();
 	virtual void Update();
+	virtual void Render();
 	virtual void Init();
 	void MoveCharacter(unsigned char KeyState[255]);
 
