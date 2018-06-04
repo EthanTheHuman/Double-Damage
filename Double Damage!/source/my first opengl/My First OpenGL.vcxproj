@@ -141,11 +141,9 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputlinebuffer.cpp" />
-    <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="network.cpp" />
     <ClCompile Include="networkmain.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
@@ -163,12 +161,10 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputLineBuffer.h" />
-    <ClInclude Include="Level1.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="network.h" />
     <ClInclude Include="networkentity.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="ShaderLoader.h" />

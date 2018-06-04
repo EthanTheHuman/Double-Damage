@@ -15,10 +15,6 @@ void Scene::Update()
 {
 }
 
-void Scene::Render()
-{
-}
-
 void Scene::Init()
 {
 }

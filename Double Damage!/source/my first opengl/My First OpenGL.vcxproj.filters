@@ -108,12 +108,6 @@
     <ClCompile Include="inputlinebuffer.cpp">
       <Filter>Source Files\NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="Level1.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -178,12 +172,6 @@
     </ClInclude>
     <ClInclude Include="InputLineBuffer.h">
       <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Level1.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
