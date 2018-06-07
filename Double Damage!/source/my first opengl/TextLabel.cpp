@@ -1,11 +1,15 @@
 #include "TextLabel.h"
 
-TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos, GLuint program)
+TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 {
+	static ShaderLoader shaderLoader;
+
 	text = newText;
 	color = glm::vec3(1.0, 1.0, 1.0);
 	scale = 1.0;
 	SetPosition(pos);
+
+	program = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 
 	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SRCWIDTH, 0.0f, (GLfloat)SRCHEIGHT);
 	glUseProgram(program);
@@ -85,7 +89,6 @@ void TextLabel::Render()
 	// Enable blending
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
-	glFrontFace(GL_CW);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Activate corresponding render state
@@ -108,7 +111,7 @@ void TextLabel::Render()
 		// Update VBO for each character
 		GLfloat vertices[6][4] = {
 			{ xpos, ypos + h, 0.0, 0.0 },{ xpos + w, ypos + h, 1.0, 0.0 },{ xpos + w, ypos, 1.0, 1.0 },
-			{ xpos, ypos + h, 0.0, 0.0 },{ xpos + w, ypos, 1.0, 1.0 },{ xpos, ypos, 0.0, 1.0 },
+		{ xpos, ypos + h, 0.0, 0.0 },{ xpos + w, ypos, 1.0, 1.0 },{ xpos, ypos, 0.0, 1.0 },
 		};
 
 		// Render the glyph texture over the quad

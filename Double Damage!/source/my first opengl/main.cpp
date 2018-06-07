@@ -25,7 +25,7 @@ using namespace std;
 
 // Functions
 void init();
-void render(void);
+void render();
 
 void Keyboard_Down(unsigned char key, int x, int y);
 void Keyboard_Up(unsigned char key, int x, int y);
@@ -91,10 +91,8 @@ void init()
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 
-	label = new TextLabel("Sample Text",
-		"Fonts/arial.ttf", glm::vec2(100.0f, 100.0f), TextShader);
+	label = new TextLabel("Sample Text", "Fonts/arial.ttf", glm::vec2(0.0f, 0.0f));
 	label->SetScale(1.0f);
-	label->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
 	KarateGuy1 = new Sprite("Sprites/KarateGuy1.png", MyCamera, SpriteShader);
 	KarateGuy1->SetTranslation({ -1.5,0,0 });
@@ -112,14 +110,13 @@ void init()
 }
 
 // Render Function
-void render(void)
+void render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0, 0.0, 0.0, 1.0); // clear red
 	//GameManager::GetInstance()->render();
 	MyCamera->Update();
 	glFrontFace(GL_CCW);
-
 	//Background
 	MySkybox->Render();
 
@@ -130,7 +127,6 @@ void render(void)
 	//KarateGuy2->render();
 	//KarateGuy1->render();
 	//KarateGuy2->render();
-
 	label->Render();
 	glutSwapBuffers();
 }

@@ -37,7 +37,6 @@ void Camera::Update()
 	SetCameraPosition({ (sin(currentTime) * 5),  1,  (cos(currentTime) * 5) });
 	SetViewMatrix();
 	SetProjectionMatrix();
-	LookAt();
 }
 
 glm::mat4 Camera::GetViewMatrix()
@@ -104,20 +103,10 @@ void Camera::SetCameraNormal(glm::vec3 _Normal)
 
 void Camera::LookAt()
 {
-	gluLookAt
-	(
-		m_CameraPosition.x, m_CameraPosition.y, m_CameraPosition.z,
-		m_CameraPosition.x + m_CameraFacing.x, m_CameraPosition.y + m_CameraFacing.y, m_CameraPosition.z + m_CameraFacing.z,
-		m_CameraNormal.x, m_CameraNormal.y, m_CameraNormal.z
-	);
+		m_ViewMatrix = glm::lookAt(m_CameraPosition, m_CameraPosition + m_CameraFacing, m_CameraNormal);
 }
 
 void Camera::LookAt(glm::vec3 _Position, glm::vec3 _Facing, glm::vec3 _Normal)
 {
-	gluLookAt
-	(
-		_Position.x, _Position.y, _Position.z,
-		_Position.x + _Facing.x, _Position.y + _Facing.y, _Position.z + _Facing.z,
-		_Normal.x, _Normal.y, _Normal.z
-	);
+	m_ViewMatrix = glm::lookAt(_Position, _Position + _Facing, _Normal);
 }

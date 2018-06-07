@@ -16,6 +16,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include "Utils2.h"
 
 struct Character
 {
@@ -27,7 +28,7 @@ struct Character
 
 class TextLabel {
 public:
-	TextLabel(std::string text, std::string font, glm::vec2 pos, GLuint program);
+	TextLabel(std::string text, std::string font, glm::vec2 pos);
 	//~TextLabel();
 
 	void Render();
