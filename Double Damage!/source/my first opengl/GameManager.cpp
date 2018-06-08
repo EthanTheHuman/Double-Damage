@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "Level1.h"
 
 GameManager* GameManager::m_Manager;
 
@@ -28,6 +29,11 @@ void GameManager::SwitchScene(int _Placement)
 
 void GameManager::render()
 {
+	pScenes[CurrentScene]->Render();
+}
+
+void GameManager::update()
+{
 	pScenes[CurrentScene]->Update();
 }
 
@@ -38,14 +44,9 @@ Scene* GameManager::CurrentSceneClass()
 
 GameManager::GameManager()
 {
-	/*
-	MenuScene* newMenuScene = new MenuScene();
+	
+	Level1* newMenuScene = new Level1();
 	pScenes.push_back(newMenuScene);
-	GameScene* newGameScene = new GameScene();
-	pScenes.push_back(newGameScene);
-	GameOverScene* newGameOverScene = new GameOverScene();
-	pScenes.push_back(newGameOverScene);
-	*/
 }
 
 

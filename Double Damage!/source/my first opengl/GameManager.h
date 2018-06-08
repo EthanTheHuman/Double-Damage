@@ -12,6 +12,7 @@ public:
 	void SwitchScene(int _Placement);
 	// Render current scene
 	void render();
+	void update();
 	// Update current scene
 
 	// Vector of scenes

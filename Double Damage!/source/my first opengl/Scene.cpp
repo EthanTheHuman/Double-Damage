@@ -19,11 +19,27 @@ void Scene::Init()
 {
 }
 
+void Scene::Render()
+{
+}
+
 //Updated Move Function
 void Scene::MoveCharacter(unsigned char KeyState[255])
 {
-	if (KeyState[(unsigned char)'w'] == INPUT_HOLD) { }
-	if (KeyState[(unsigned char)'s'] == INPUT_HOLD) { }
-	if (KeyState[(unsigned char)'a'] == INPUT_HOLD) { }
-	if (KeyState[(unsigned char)'d'] == INPUT_HOLD) { }
+	if (KeyState[(unsigned char)'w'] == INPUT_HOLD)
+	{
+		
+	}
+	if (KeyState[(unsigned char)'s'] == INPUT_HOLD)
+	{
+		
+	}
+	if (KeyState[(unsigned char)'a'] == INPUT_HOLD)
+	{
+		
+	}
+	if (KeyState[(unsigned char)'d'] == INPUT_HOLD) 
+	{
+		
+	}
 }

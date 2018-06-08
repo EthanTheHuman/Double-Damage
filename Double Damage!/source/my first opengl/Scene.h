@@ -9,7 +9,8 @@ public:
 	~Scene();
 	virtual void Update();
 	virtual void Init();
-	void MoveCharacter(unsigned char KeyState[255]);
+	virtual void Render();
+	virtual void MoveCharacter(unsigned char KeyState[255]);
 
 	Camera MyCamera;
 	GLuint MyProgram;
