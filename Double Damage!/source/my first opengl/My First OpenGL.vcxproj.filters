@@ -211,5 +211,11 @@
     <None Include="Shaders\Cubemap.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="Shaders\Ambient.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Shaders\Ambient.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -181,6 +181,8 @@
     <ClInclude Include="WorkQueue.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Ambient.fs" />
+    <None Include="Shaders\Ambient.vs" />
     <None Include="Shaders\Cubemap.fs" />
     <None Include="Shaders\Cubemap.vs" />
     <None Include="Shaders\ModelBasic.fs" />

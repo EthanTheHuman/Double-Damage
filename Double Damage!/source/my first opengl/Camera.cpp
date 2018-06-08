@@ -32,9 +32,6 @@ Camera::~Camera()
 
 void Camera::Update()
 {
-	float currentTime = glutGet(GLUT_ELAPSED_TIME);
-	currentTime = currentTime * 0.001f;
-	SetCameraPosition({ (sin(currentTime) * 5),  1,  (cos(currentTime) * 5) });
 	SetViewMatrix();
 	SetProjectionMatrix();
 }
