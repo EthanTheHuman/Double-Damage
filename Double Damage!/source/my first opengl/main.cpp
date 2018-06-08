@@ -91,8 +91,8 @@ void init()
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 
-	label = new TextLabel("Sample Text", "Fonts/arial.ttf", glm::vec2(0.0f, 0.0f));
-	label->SetScale(1.0f);
+	label = new TextLabel("Sample Text", "Fonts/arial.ttf", glm::vec2(10.0f, 10.0f));
+	label->SetScale(100.0f);
 
 	KarateGuy1 = new Sprite("Sprites/KarateGuy1.png", MyCamera, SpriteShader);
 	KarateGuy1->SetTranslation({ -1.5,0,0 });
@@ -124,9 +124,6 @@ void render()
 	MyPyramid->Render();
 
 	//Double-Render transparent objects
-	//KarateGuy2->render();
-	//KarateGuy1->render();
-	//KarateGuy2->render();
 	label->Render();
 	glutSwapBuffers();
 }
