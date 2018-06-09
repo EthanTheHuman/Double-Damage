@@ -38,9 +38,10 @@ public:
 private:
 	// List of objects
 	Camera * MyCamera;
-	TextLabel * label;
+	std::vector<TextLabel*> label;
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
+	Player * _Player;
 
 	// List of Shaders
 	GLuint SpriteShader;
