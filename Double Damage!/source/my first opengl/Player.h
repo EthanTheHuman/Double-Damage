@@ -12,11 +12,11 @@ public:
 	void horizontal(bool _direction);
 	void Update();
 	void Render();
+	void SetRotation(glm::vec3 _rotation);
 
 private:
 	float speed = 0.05f;
 	Model * PlayerModel;
-	Sprite * PlayerSprite;
 	float x = 0.0f;
 	float y = 0.0f;
 	float z = 0.0f;
