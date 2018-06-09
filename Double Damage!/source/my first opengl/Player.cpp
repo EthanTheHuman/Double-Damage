@@ -44,7 +44,8 @@ void Player::horizontal(bool _direction)
 
 void Player::Update()
 {
-
+	i_Rotation = 0;
+	PlayerModel->SetRotation({ 0,90,0 });
 }
 
 void Player::Render()

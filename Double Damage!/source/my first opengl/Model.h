@@ -66,9 +66,10 @@ public:
 
 	void SetRotation(glm::vec3 _Rotation)
 	{
-		rotation = glm::rotate(glm::mat4(), glm::radians(_Rotation.x), glm::vec3(1, 0, 0));
-		rotation = glm::rotate(glm::mat4(), glm::radians(_Rotation.y), glm::vec3(0, 1, 0));
-		rotation = glm::rotate(glm::mat4(), glm::radians(_Rotation.z), glm::vec3(0, 0, 1));
+		rotation = glm::mat4();
+		rotation = glm::rotate(rotation, glm::radians(_Rotation.x), glm::vec3(1, 0, 0));
+		rotation = glm::rotate(rotation, glm::radians(_Rotation.y), glm::vec3(0, 1, 0));
+		rotation = glm::rotate(rotation, glm::radians(_Rotation.z), glm::vec3(0, 0, 1));
 	};
 
 	void SetScale(glm::vec3 _Scale)

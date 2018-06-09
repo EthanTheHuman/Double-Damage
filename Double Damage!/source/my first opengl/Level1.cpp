@@ -64,6 +64,8 @@ void Level1::Render()
 
 void Level1::Update()
 {
+	_Player->Update();
+	_UFO1->Update();
 }
 
 void Level1::MoveCharacter(unsigned char KeyState[255])
