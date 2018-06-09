@@ -81,6 +81,9 @@ void init()
 {
 	GameManager::GetInstance()->SwitchScene(0);
 	//---------------------------------------------------------------
+	for (int i = 0; i < 255; i++) {
+		KeyState[i] = INPUT_RELEASED;
+	}
 }
 
 // Render Function
@@ -104,6 +107,27 @@ void update()
 	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
 }
 
-//Updated Keyboard Functions
-void Keyboard_Down(unsigned char key, int x, int y) { KeyState[key] = INPUT_HOLD; }
-void Keyboard_Up(unsigned char key, int x, int y) { KeyState[key] = INPUT_RELEASED; }
+//Updated Keyboard Functions v2
+bool firstdown = false, firstup = false;
+void Keyboard_Down(unsigned char key, int x, int y) {
+	if (firstdown == false) {
+		KeyState[key] = INPUT_FIRST_PRESS;
+		firstdown = true;
+		firstup = false;
+		Keyboard_Down(key, x, y);
+	}
+	else {
+		KeyState[key] = INPUT_HOLD;
+	}
+}
+void Keyboard_Up(unsigned char key, int x, int y) {
+	if (firstup == false) {
+		KeyState[key] = INPUT_FIRST_RELEASE;
+		firstup = true;
+		firstdown = false;
+		Keyboard_Up(key, x, y);
+	}
+	else {
+		KeyState[key] = INPUT_RELEASED;
+	}
+}
