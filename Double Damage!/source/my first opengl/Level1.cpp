@@ -20,7 +20,6 @@ void Level1::Init()
 	TextShader = shaderloader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 	SkyboxShader = shaderloader.CreateProgram("Shaders/Cubemap.vs", "Shaders/Cubemap.fs");
 
-	//label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(SRCWIDTH / 2, SRCHEIGHT / 2));
 	label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(100, 100));
 	label->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 

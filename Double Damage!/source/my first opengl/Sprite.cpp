@@ -12,7 +12,7 @@ Sprite::Sprite(char * _filename, Camera * _camera, GLuint _program)
 		//Get this out of the way
 		m_Camera = _camera;
 		m_Program = _program;
-
+		glUseProgram(m_Program);
 	//------------------------------------------------------------------------------------------------------------------------------------------
 
 		// Initialise square with rainbow colors
