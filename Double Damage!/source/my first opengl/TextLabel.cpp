@@ -69,9 +69,9 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 
 	//Configure VAO/VBO for texture quads
 	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
 	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 
@@ -86,6 +86,8 @@ void TextLabel::Render()
 {
 	glm::vec2 textPos = position;
 
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
 	// Enable blending
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_BLEND);

@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutSetOption(GLUT_MULTISAMPLE, 8);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowPosition(500, 300);
+	glutInitWindowPosition(400, 200);
 	glutInitWindowSize(SRCWIDTH, SRCHEIGHT);
 	glutCreateWindow("Double Damage!");
 
@@ -81,9 +81,6 @@ void init()
 {
 	GameManager::GetInstance()->SwitchScene(0);
 	//---------------------------------------------------------------
-	for (int i = 0; i < 255; i++) {
-		KeyState[i] = INPUT_RELEASED;
-	}
 }
 
 // Render Function

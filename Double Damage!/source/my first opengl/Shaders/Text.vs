@@ -8,6 +8,6 @@ uniform mat4 proj;
 
 void main()
 {
-gl_Position = proj * vec4(vertex.xy, 0.0f, 1.0f); 
+gl_Position = proj * vec4(vertex.xy, 0.0, 1.0); 
 fragTexCoord = vertex.zw; 
 }
