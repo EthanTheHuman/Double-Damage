@@ -36,7 +36,13 @@ public:
 	
 	/*  Functions   */
 	// Constructor, expects a filepath to a 3D model.
-	Model(std::string path, Camera* camera, GLuint program){
+	Model(std::string path, Camera* camera, GLuint program)
+	{
+
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CW);
 
 		translation = glm::mat4();
 		rotation = glm::mat4();
