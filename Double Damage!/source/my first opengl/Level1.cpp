@@ -23,18 +23,10 @@ void Level1::Init()
 	label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(100, 100));
 	label->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
-	KarateGuy1 = new Sprite("Sprites/KarateGuy1.png", MyCamera, SpriteShader);
-	KarateGuy1->SetTranslation({ -1.5,0,0 });
-	KarateGuy1->SetScale({ 0.5,0.5,0 });
-	KarateGuy2 = new Sprite("Sprites/KarateGuy2.png", MyCamera, SpriteShader);
-
-	KarateGuy2->SetTranslation({ -1.6,0,0.001 });
-	KarateGuy2->SetScale({ -0.5f , 0.5f , 0.5f });
-
 	_Player = new Player(MyCamera, AmbientShader);
 	_UFO1 = new UFO(MyCamera, AmbientShader);
 
-	MySkybox = new CubeMap(MyCamera, SkyboxShader, "top.jpg", "bottom.jpg", "left.jpg", "right.jpg", "front.jpg", "back.jpg");
+	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");
 }
 
 void Level1::Render()
@@ -48,11 +40,6 @@ void Level1::Render()
 	//Render 3D objects
 	_Player->Render();
 	_UFO1->Render();
-
-	//Double-Render transparent objects
-	KarateGuy2->render();
-	KarateGuy1->render();
-	KarateGuy2->render();
 
 	label->Render();
 }

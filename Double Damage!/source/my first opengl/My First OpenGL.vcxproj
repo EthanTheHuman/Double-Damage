@@ -143,6 +143,7 @@
     <ClCompile Include="inputlinebuffer.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="network.cpp" />
     <ClCompile Include="networkmain.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputLineBuffer.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="network.h" />
