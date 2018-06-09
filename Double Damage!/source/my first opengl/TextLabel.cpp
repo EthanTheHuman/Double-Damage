@@ -12,6 +12,10 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	program = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 	glUseProgram(program);
 
+	glUniform3f(glGetUniformLocation(program, "textColor"), 255, 255, 255);
+	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SRCWIDTH, 0.0f, (GLfloat)SRCHEIGHT);
+	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
+
 	// Initiate the font Lib
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft))
@@ -99,10 +103,6 @@ void TextLabel::Render()
 
 	// Activate corresponding render state
 	glUseProgram(program);
-
-	glUniform3f(glGetUniformLocation(program, "textColor"), 255, 255, 255);
-	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SRCWIDTH, 0.0f, (GLfloat)SRCHEIGHT);
-	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
 
 	glUniform3f(glGetUniformLocation(program, "textColor"), color.x, color.y, color.z);
 	glActiveTexture(GL_TEXTURE0);

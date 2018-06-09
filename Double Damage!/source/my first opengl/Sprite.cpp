@@ -13,7 +13,6 @@ Sprite::Sprite(char * _filename, Camera * _camera, GLuint _program)
 		m_Camera = _camera;
 		m_Program = _program;
 		glUseProgram(m_Program);
-		
 
 	//------------------------------------------------------------------------------------------------------------------------------------------
 
