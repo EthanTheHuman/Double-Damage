@@ -10,4 +10,5 @@ void main()
 { 
 vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, fragTexCoord).r);
 color = vec4(textColor, 1.0) * sampled;
+//color = vec4(255, 255, 255, 1);
 }
