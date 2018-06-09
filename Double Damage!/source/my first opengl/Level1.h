@@ -22,6 +22,7 @@
 #include "Utils.h"
 #include "CubeMap.h"
 #include "Player.h"
+#include "UFO.h"
 #include "dependencies\FMOD\fmod.hpp"
 
 // Namespace
@@ -48,6 +49,7 @@ private:
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;
+	UFO * _UFO1;
 
 	// List of Shaders
 	GLuint SpriteShader;

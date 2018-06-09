@@ -153,6 +153,7 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextLabel.cpp" />
+    <ClCompile Include="UFO.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextLabel.h" />
+    <ClInclude Include="UFO.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Utils2.h" />
     <ClInclude Include="WorkQueue.h" />

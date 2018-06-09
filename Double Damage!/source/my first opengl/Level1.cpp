@@ -13,7 +13,7 @@ Level1::~Level1()
 
 void Level1::Init()
 {
-	MyCamera = new Camera();
+	MyCamera = new Camera({0,3,-3}, {0,0,0}, {0,1,0});
 	SpriteShader = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
 	ModelBasicShader = shaderloader.CreateProgram("Shaders/ModelBasic.vs", "Shaders/ModelBasic.fs");
 	AmbientShader = shaderloader.CreateProgram("Shaders/Ambient.vs", "Shaders/Ambient.fs");
@@ -37,6 +37,7 @@ void Level1::Init()
 	KarateGuy2->SetScale({ -0.5f , 0.5f , 0.5f });
 
 	_Player = new Player(MyCamera, AmbientShader);
+	_UFO1 = new UFO(MyCamera, AmbientShader);
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "top.jpg", "bottom.jpg", "left.jpg", "right.jpg", "front.jpg", "back.jpg");
 }
@@ -51,6 +52,7 @@ void Level1::Render()
 
 	//Render 3D objects
 	_Player->Render();
+	_UFO1->Render();
 
 	//Double-Render transparent objects
 	KarateGuy2->render();

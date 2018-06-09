@@ -32,11 +32,11 @@ void Player::vertical(bool _direction)
 
 void Player::horizontal(bool _direction)
 {
-	if (_direction)
+	if (!_direction)
 	{
 		x += speed;
 	}
-	else if (!_direction)
+	else if (_direction)
 	{
 		x -= speed;
 	}
