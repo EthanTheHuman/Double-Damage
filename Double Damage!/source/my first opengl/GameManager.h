@@ -31,4 +31,3 @@ private:
 	void operator=(GameManager const&) = delete;
 	
 };
-

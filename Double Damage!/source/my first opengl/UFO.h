@@ -16,4 +16,3 @@ private:
 	float y = -0.1f;
 	float z = 0.0f;
 };
-
