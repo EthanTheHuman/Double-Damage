@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "Level1.h"
+#include "MainMenu.h"
 
 GameManager* GameManager::m_Manager;
 
@@ -44,7 +45,8 @@ Scene* GameManager::CurrentSceneClass()
 
 GameManager::GameManager()
 {
-	
+	MainMenu* newMainMenu = new MainMenu();
+	pScenes.push_back(newMainMenu);
 	Level1* newMenuScene = new Level1();
 	pScenes.push_back(newMenuScene);
 }
