@@ -19,19 +19,15 @@ void Level1::Init()
 	AmbientShader = shaderloader.CreateProgram("Shaders/Ambient.vs", "Shaders/Ambient.fs");
 	TextShader = shaderloader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 	SkyboxShader = shaderloader.CreateProgram("Shaders/Cubemap.vs", "Shaders/Cubemap.fs");
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CW);
 
-	label = new TextLabel("Sample Text", "Fonts/arial.ttf", glm::vec2(100.0f, 100.0f));
-	label->SetScale(1.0f);
+	//label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(SRCWIDTH / 2, SRCHEIGHT / 2));
+	label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(0, 0));
 	label->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
 	KarateGuy1 = new Sprite("Sprites/KarateGuy1.png", MyCamera, SpriteShader);
 	KarateGuy1->SetTranslation({ -1.5,0,0 });
 	KarateGuy1->SetScale({ 0.5,0.5,0 });
-	KarateGuy2 = new Sprite("Sprites/Kappa.jpg", MyCamera, SpriteShader);
+	KarateGuy2 = new Sprite("Sprites/KarateGuy2.png", MyCamera, SpriteShader);
 
 	KarateGuy2->SetTranslation({ -1.6,0,0.001 });
 	KarateGuy2->SetScale({ -0.5f , 0.5f , 0.5f });
@@ -55,9 +51,9 @@ void Level1::Render()
 	_UFO1->Render();
 
 	//Double-Render transparent objects
-	//KarateGuy2->render();
-	//KarateGuy1->render();
-	//KarateGuy2->render();
+	KarateGuy2->render();
+	KarateGuy1->render();
+	KarateGuy2->render();
 
 	label->Render();
 }

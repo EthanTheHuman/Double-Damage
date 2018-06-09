@@ -6,13 +6,14 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 
 	text = newText;
 	color = glm::vec3(1.0, 1.0, 1.0);
-	scale = 1.0;
+	scale = 0.02f;
 	SetPosition(pos);
 
 	program = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
-
-	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SRCWIDTH, 0.0f, (GLfloat)SRCHEIGHT);
 	glUseProgram(program);
+
+	glUniform3f(glGetUniformLocation(program, "textColor"), 255, 255, 255);
+	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SRCWIDTH, 0.0f, (GLfloat)SRCHEIGHT);
 	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
 
 	// Initiate the font Lib
@@ -30,6 +31,7 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	}
 	// Set size to load glyph as
 	FT_Set_Pixel_Sizes(face, 0, 48);
+	//FT_Set_Pixel_Sizes(face, 0, 1);
 	// Disable byte-alignment restriction
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -82,12 +84,18 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	glBindVertexArray(0);
 }
 
+TextLabel::~TextLabel()
+{
+}
+
 void TextLabel::Render()
 {
 	glm::vec2 textPos = position;
 
 	// Enable blending
-	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK); // Cull the Back faces
+	glFrontFace(GL_CW); // Front face is Clockwise order
+	glEnable(GL_CULL_FACE); // Turn on the back face culling
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
