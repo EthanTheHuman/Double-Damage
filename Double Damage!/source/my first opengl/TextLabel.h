@@ -7,7 +7,7 @@
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
 
-#include "ShaderLoader.h"
+#include "ShaderLoader.h";
 #include "Utils2.h"
 
 #include <ft2build.h>
@@ -19,15 +19,16 @@
 
 struct Character
 {
-	GLuint      TextureID;	// Texture ID 
-	glm::ivec2	Size;		// Size of glyph
+	GLuint        TextureID;	// Texture ID 
+	glm::ivec2  Size;	// Size of glyph
 	glm::ivec2  Bearing;	// Positon of glyph 
-	GLuint      Advance;	// How far to move for the next character
+	GLuint        Advance;	// How far to move for the next character
 };
 
 class TextLabel {
 public:
 	TextLabel(std::string text, std::string font, glm::vec2 pos);
+	~TextLabel();
 
 	void Render();
 	void SetText(std::string newText) { text = newText; };
