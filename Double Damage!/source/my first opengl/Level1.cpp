@@ -70,6 +70,7 @@ void Level1::Update()
 
 void Level1::MoveCharacter(unsigned char KeyState[255])
 {
+	//Movement itself
 	if (KeyState[(unsigned char)'w'] == INPUT_HOLD)
 	{
 		_Player->vertical(true);
@@ -86,4 +87,77 @@ void Level1::MoveCharacter(unsigned char KeyState[255])
 	{
 		_Player->horizontal(true);
 	}
+
+	//Rotation
+
+	//All 4
+	if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
+	{
+		//No rotation
+	}
+
+	//Trios
+	else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD))
+	{
+		//No rotation
+	}
+	else if ((KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
+	{
+		//No rotation
+	}
+	else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
+	{
+		//No rotation
+	}
+	else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
+	{
+		//No rotation
+	}
+
+	//Opposites
+	else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'s'] == INPUT_HOLD))
+	{
+		//No rotation
+	}
+	else if ((KeyState[(unsigned char)'a'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
+	{
+		//No rotation
+	}
+
+	//Diagonals
+	else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD))
+	{
+		_Player->SetRotation({ 0,45,0 });
+	}
+	else if ((KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD))
+	{
+		_Player->SetRotation({ 0,135,0 });
+	}
+	else if ((KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
+	{
+		_Player->SetRotation({ 0,225,0 });
+	}
+	else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
+	{
+		_Player->SetRotation({ 0,315,0 });
+	}
+
+	//Straights
+	else if (KeyState[(unsigned char)'w'] == INPUT_HOLD)
+	{
+		_Player->SetRotation({ 0,0,0 });
+	}
+	else if (KeyState[(unsigned char)'s'] == INPUT_HOLD)
+	{
+		_Player->SetRotation({ 0,180,0 });
+	}
+	else if (KeyState[(unsigned char)'a'] == INPUT_HOLD)
+	{
+		_Player->SetRotation({ 0,90,0 });
+	}
+	else if (KeyState[(unsigned char)'d'] == INPUT_HOLD)
+	{
+		_Player->SetRotation({ 0,270,0 });
+	}
+
 }
