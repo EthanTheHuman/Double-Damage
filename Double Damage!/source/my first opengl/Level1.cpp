@@ -13,7 +13,7 @@ Level1::~Level1()
 
 void Level1::Init()
 {
-	MyCamera = new Camera(glm::vec3(0,3,-3), glm::vec3(0,0,0), glm::vec3(0,1,0));
+	MyCamera = new Camera(glm::vec3(5,0,-3), glm::vec3(0,0,0), glm::vec3(0,1,0));
 	SpriteShader = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
 	ModelBasicShader = shaderloader.CreateProgram("Shaders/ModelBasic.vs", "Shaders/ModelBasic.fs");
 	AmbientShader = shaderloader.CreateProgram("Shaders/Ambient.vs", "Shaders/Ambient.fs");
@@ -21,7 +21,7 @@ void Level1::Init()
 	SkyboxShader = shaderloader.CreateProgram("Shaders/Cubemap.vs", "Shaders/Cubemap.fs");
 
 	//label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(SRCWIDTH / 2, SRCHEIGHT / 2));
-	label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(0, 0));
+	label = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(100, 100));
 	label->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
 	KarateGuy1 = new Sprite("Sprites/KarateGuy1.png", MyCamera, SpriteShader);

@@ -6,15 +6,11 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 
 	text = newText;
 	color = glm::vec3(1.0, 1.0, 1.0);
-	scale = 0.02f;
+	scale = 1.0f;
 	SetPosition(pos);
 
 	program = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 	glUseProgram(program);
-
-	glUniform3f(glGetUniformLocation(program, "textColor"), 255, 255, 255);
-	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SRCWIDTH, 0.0f, (GLfloat)SRCHEIGHT);
-	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
 
 	// Initiate the font Lib
 	FT_Library ft;
@@ -77,8 +73,8 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
 	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -103,6 +99,11 @@ void TextLabel::Render()
 
 	// Activate corresponding render state
 	glUseProgram(program);
+
+	glUniform3f(glGetUniformLocation(program, "textColor"), 255, 255, 255);
+	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SRCWIDTH, 0.0f, (GLfloat)SRCHEIGHT);
+	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
+
 	glUniform3f(glGetUniformLocation(program, "textColor"), color.x, color.y, color.z);
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(VAO);
