@@ -9,14 +9,6 @@ Level1::Level1()
 
 Level1::~Level1()
 {
-	delete MyCamera;
-	for (int i = 0; i < pauseMenu.size(); i++) {
-		delete pauseMenu[i];
-	}
-	pauseMenu.clear();
-	delete _Player;
-	delete _UFO1;
-	delete MySkybox;
 }
 void Level1::Init()
 {
@@ -42,6 +34,20 @@ void Level1::Init()
 	_UFO1 = new UFO(MyCamera, AmbientShader);
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");
+}
+
+void Level1::Deconstruct()
+{
+	delete MyCamera;
+	for (int i = 0; i < pauseMenu.size(); i++) {
+		delete pauseMenu[i];
+	}
+	pauseMenu.clear();
+	delete _Player;
+	delete _UFO1;
+	delete MySkybox;
+	nextScene = NOTHING;
+	b_pauseMenu = false;
 }
 
 void Level1::Render()
@@ -107,7 +113,7 @@ void Level1::MoveCharacter(unsigned char KeyState[255])
 				MenuUpdate();
 			}
 			else if (selection == 1) {
-				//exit
+				nextScene = TOMAIN;
 			}
 		}
 	}

@@ -35,10 +35,10 @@ public:
 	Level1();
 	~Level1();
 	void Init();
+	void Deconstruct();
 	void Render();
 	void Update();
 	void MoveCharacter(unsigned char KeyState[255]);
-
 	void MenuUpdate();
 
 private:

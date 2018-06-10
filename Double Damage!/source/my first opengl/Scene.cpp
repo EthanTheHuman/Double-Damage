@@ -19,6 +19,10 @@ void Scene::Init()
 {
 }
 
+void Scene::Deconstruct()
+{
+}
+
 void Scene::Render()
 {
 }

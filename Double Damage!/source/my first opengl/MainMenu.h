@@ -37,6 +37,7 @@ class MainMenu :
 public:
 	MainMenu();
 	void Init();
+	void Deconstruct();
 	~MainMenu();
 	void Render();
 	void Update();

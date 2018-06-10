@@ -42,6 +42,24 @@ void MainMenu::Init()
 	MenuUpdate();
 }
 
+void MainMenu::Deconstruct()
+{
+	delete MyCamera;
+	for (int i = 0; i < mainMenu.size(); i++) {
+		delete mainMenu[i];
+	}
+	mainMenu.clear();
+	for (int i = 0; i < playMenu.size(); i++) {
+		delete playMenu[i];
+	}
+	playMenu.clear();
+	delete _Player;
+	delete MySkybox;
+	nextScene = NOTHING;
+	menu = MAIN;
+	selection = 0;
+}
+
 void MainMenu::Render()
 {
 	MyCamera->Update();
@@ -79,17 +97,6 @@ void MainMenu::Update()
 
 MainMenu::~MainMenu()
 {
-	delete MyCamera;
-	for (int i = 0; i < mainMenu.size(); i++) {
-		delete mainMenu[i];
-	}
-	mainMenu.clear();
-	for (int i = 0; i < playMenu.size(); i++) {
-		delete playMenu[i];
-	}
-	playMenu.clear();
-	delete _Player;
-	delete MySkybox;
 }
 
 void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
@@ -137,7 +144,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		else if (menu == PLAY) {
 			if (selection == 0) {
 				//play in singleplayer
-				nextScene = true;
+				nextScene = NEXT;
 			}
 			if (selection == 1) {
 				//play in miltiplayer

@@ -38,10 +38,23 @@ void GameManager::update()
 	if (pScenes[CurrentScene]->b_pauseMenu == false) {
 		pScenes[CurrentScene]->Update();
 	}
-	if (pScenes[CurrentScene]->nextScene == true) {
-		delete pScenes[CurrentScene];
+	if (pScenes[CurrentScene]->nextScene == NEXT) {
+		pScenes[CurrentScene]->Deconstruct();
 		CurrentScene++;
 		pScenes[CurrentScene]->Init();
+	}
+	if (pScenes[CurrentScene]->nextScene == PREVIOUS) {
+		pScenes[CurrentScene]->Deconstruct();
+		CurrentScene--;
+		pScenes[CurrentScene]->Init();
+	}
+	if (pScenes[CurrentScene]->nextScene == TOMAIN) {
+		pScenes[CurrentScene]->Deconstruct();
+		CurrentScene = 0;
+		pScenes[CurrentScene]->Init();
+	}
+	if (pScenes[CurrentScene]->nextScene == NOTHING) {
+		//do NUTHING
 	}
 }
 
