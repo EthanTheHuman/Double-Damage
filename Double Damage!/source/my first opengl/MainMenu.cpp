@@ -2,6 +2,10 @@
 
 MainMenu::MainMenu()
 {
+}
+
+void MainMenu::Init()
+{
 	MyCamera = new Camera(glm::vec3(0, 0, -3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	SpriteShader = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
 	ModelBasicShader = shaderloader.CreateProgram("Shaders/ModelBasic.vs", "Shaders/ModelBasic.fs");
@@ -75,6 +79,17 @@ void MainMenu::Update()
 
 MainMenu::~MainMenu()
 {
+	delete MyCamera;
+	for (int i = 0; i < mainMenu.size(); i++) {
+		delete mainMenu[i];
+	}
+	mainMenu.clear();
+	for (int i = 0; i < playMenu.size(); i++) {
+		delete playMenu[i];
+	}
+	playMenu.clear();
+	delete _Player;
+	delete MySkybox;
 }
 
 void MainMenu::MoveCharacter(unsigned char KeyState[255]) {

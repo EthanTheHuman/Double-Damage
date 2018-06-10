@@ -9,6 +9,14 @@ Level1::Level1()
 
 Level1::~Level1()
 {
+	delete MyCamera;
+	for (int i = 0; i < pauseMenu.size(); i++) {
+		delete pauseMenu[i];
+	}
+	pauseMenu.clear();
+	delete _Player;
+	delete _UFO1;
+	delete MySkybox;
 }
 void Level1::Init()
 {

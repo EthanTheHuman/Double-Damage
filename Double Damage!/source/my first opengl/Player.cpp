@@ -14,6 +14,7 @@ Player::Player(Camera * _Camera, GLuint _Shader)
 
 Player::~Player()
 {
+	delete PlayerModel;
 }
 
 void Player::vertical(bool _direction)

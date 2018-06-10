@@ -39,6 +39,7 @@ void GameManager::update()
 		pScenes[CurrentScene]->Update();
 	}
 	if (pScenes[CurrentScene]->nextScene == true) {
+		delete pScenes[CurrentScene];
 		CurrentScene++;
 		pScenes[CurrentScene]->Init();
 	}
@@ -52,6 +53,7 @@ Scene* GameManager::CurrentSceneClass()
 GameManager::GameManager()
 {
 	MainMenu* newMainMenu = new MainMenu();
+	newMainMenu->Init();
 	pScenes.push_back(newMainMenu);
 	Level1* newMenuScene = new Level1();
 	pScenes.push_back(newMenuScene);

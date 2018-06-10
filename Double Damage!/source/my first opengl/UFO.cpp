@@ -15,6 +15,7 @@ UFO::UFO(Camera * _Camera, GLuint _Shader)
 
 UFO::~UFO()
 {
+	delete UFOModel;
 }
 
 void UFO::Update()
