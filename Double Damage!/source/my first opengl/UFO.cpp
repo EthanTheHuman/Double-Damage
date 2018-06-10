@@ -18,8 +18,15 @@ UFO::~UFO()
 	delete UFOModel;
 }
 
-void UFO::Update()
+
+void UFO::Update(glm::vec3 C1)
 {
+	float distance = sqrt(pow(C1.x - m_x, 2) + pow(C1.z - m_z, 2));
+	float directionX = (C1.x - m_x) / distance;
+	float directionY = (C1.z - m_z) / distance;
+
+	m_x += directionX * speed;
+	m_z += directionY * speed;
 }
 
 void UFO::Render()
