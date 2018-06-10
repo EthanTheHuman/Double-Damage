@@ -12,7 +12,5 @@ public:
 private:
 	float speed = 0.05f;
 	Model * UFOModel;
-	float x = 0.0f;
-	float y = -0.1f;
-	float z = 0.0f;
+	float m_y = -0.1f;
 };

@@ -24,6 +24,6 @@ void UFO::Update()
 
 void UFO::Render()
 {
-	UFOModel->SetTranslation({ x, y, z });
+	UFOModel->SetTranslation({ m_x, m_y, m_z });
 	UFOModel->Render();
 }

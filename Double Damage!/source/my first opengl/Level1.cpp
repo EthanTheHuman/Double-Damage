@@ -27,6 +27,8 @@ void Level1::Init()
 	TextShader = shaderloader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 	SkyboxShader = shaderloader.CreateProgram("Shaders/Cubemap.vs", "Shaders/Cubemap.fs");
 
+	g_Score = new TextLabel("Score: ", "fonts/arial.ttf", glm::vec2(600, 50));
+
 	TempLabel = new TextLabel("Resume", "fonts/arial.ttf", glm::vec2(100, 100));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	pauseMenu.push_back(TempLabel);
@@ -59,12 +61,18 @@ void Level1::Render()
 			pauseMenu[i]->Render();
 		}
 	}
+	else
+	{
+		g_Score->Render();
+	}
 }
 
 void Level1::Update()
 {
 	_Player->Update();
 	_UFO1->Update();
+	string TempString = "Score: " + ToString(score);
+	g_Score->SetText(TempString);
 }
 
 void Level1::MoveCharacter(unsigned char KeyState[255])

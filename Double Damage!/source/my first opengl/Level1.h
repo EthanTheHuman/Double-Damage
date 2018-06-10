@@ -51,6 +51,8 @@ private:
 	ShaderLoader shaderloader;
 	Player * _Player;
 	UFO * _UFO1;
+	TextLabel * g_Score;
+	int score = 0;
 
 	// List of Shaders
 	GLuint SpriteShader;

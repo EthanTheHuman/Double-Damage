@@ -17,10 +17,12 @@ public:
 	Entity();
 	Entity(int _x, int _y);
 	~Entity();
+	glm::vec3 GetPos();
 
 public:
-	int m_x;
-	int m_y;
+	float m_x = 0.0f;
+	float m_y = 0.0f;
+	float m_z = 0.0f;
 	Sprite m_Sprite;
 	int ID;
 };

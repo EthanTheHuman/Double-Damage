@@ -21,11 +21,11 @@ void Player::vertical(bool _direction)
 {
 	if (_direction)
 	{
-		z += speed;
+		m_z += speed;
 	}
 	else if (!_direction)
 	{
-		z -= speed;
+		m_z -= speed;
 	}
 }
 
@@ -33,11 +33,11 @@ void Player::horizontal(bool _direction)
 {
 	if (!_direction)
 	{
-		x += speed;
+		m_x += speed;
 	}
 	else if (_direction)
 	{
-		x -= speed;
+		m_x -= speed;
 	}
 }
 
@@ -47,7 +47,7 @@ void Player::Update()
 
 void Player::Render()
 {
-	PlayerModel->SetTranslation({ x, y, z });
+	PlayerModel->SetTranslation({ m_x, m_y, m_z });
 	PlayerModel->Render();
 }
 
