@@ -107,8 +107,8 @@ void update()
 }
 
 //Updated Keyboard Functions v3
-void Keyboard_Down(unsigned char key, int x, int y) { KeyState[key] = INPUT_FIRST_PRESS; }
-void Keyboard_Up(unsigned char key, int x, int y) { KeyState[key] = INPUT_FIRST_RELEASE; }
+void Keyboard_Down(unsigned char key, int x, int y) { if (KeyState[key] != INPUT_HOLD) { KeyState[key] = INPUT_FIRST_PRESS; } }
+void Keyboard_Up(unsigned char key, int x, int y) { if (KeyState[key] != INPUT_RELEASED) {KeyState[key] = INPUT_FIRST_RELEASE; } }
 
 void KeyboardUpdate() {
 	for (int i = 0; i < 255; i++) {
