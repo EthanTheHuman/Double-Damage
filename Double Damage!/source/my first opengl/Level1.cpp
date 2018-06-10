@@ -18,7 +18,7 @@ void Level1::Init()
 	TextShader = shaderloader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 	SkyboxShader = shaderloader.CreateProgram("Shaders/Cubemap.vs", "Shaders/Cubemap.fs");
 
-	g_Score = new TextLabel("Score: ", "fonts/arial.ttf", glm::vec2(600, 50));
+	g_Score = new TextLabel("Score: ", "fonts/arial.ttf", glm::vec2(500, 50));
 
 	TempLabel = new TextLabel("Resume", "fonts/arial.ttf", glm::vec2(100, 100));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
@@ -28,14 +28,16 @@ void Level1::Init()
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	pauseMenu.push_back(TempLabel);
 
+	TempLabel = new TextLabel("GameOver", "fonts/arial.ttf", glm::vec2(300, 500));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	TempLabel->SetScale(2.0f);
+	pauseMenu.push_back(TempLabel);
+
 	_Player = new Player(MyCamera, AmbientShader);
 
-
-	for (int i = 0; i < 10; i++) {
-		TempUFO = new UFO(MyCamera, AmbientShader);
-		TempUFO->setpos(glm::vec2(-5 + rand() % 10, -5 + rand() % 10));
-		UFOS.push_back(TempUFO);
-	}
+	TempUFO = new UFO(MyCamera, AmbientShader);
+	TempUFO->setpos(glm::vec2(-5 + rand() % 10, -5 + rand() % 10));
+	UFOS.push_back(TempUFO);
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");
 }
@@ -56,6 +58,7 @@ void Level1::Deconstruct()
 	delete g_Score;
 	nextScene = NOTHING;
 	b_pauseMenu = false;
+	score = 0;
 }
 
 void Level1::Render()
@@ -73,8 +76,15 @@ void Level1::Render()
 	}
 
 	if (b_pauseMenu == true) {
-		for (int i = 0; i < pauseMenu.size(); i++) {
-			pauseMenu[i]->Render();
+		if (Gameover == true) {
+			MenuUpdate();
+			pauseMenu[1]->Render();
+			pauseMenu[2]->Render();
+		}
+		else {
+			for (int i = 0; i < 2; i++) {
+				pauseMenu[i]->Render();
+			}
 		}
 	}
 	else
@@ -87,16 +97,18 @@ void Level1::Update()
 {
 	_Player->Update();
 	for (int i = 0; i < UFOS.size(); i++) {
-		UFOS[i]->Update();
+		UFOS[i]->Update(_Player->GetPos());
 	}
 	string TempString = "Score: " + ToString(score);
 	g_Score->SetText(TempString);
 
 	for (int i = 0; i < UFOS.size(); i++) {
-		if (IsColliding(_Player->GetPos(), UFOS[i]->GetPos(), 1.0f, 1.0f)) {
-			delete UFOS[i];
-			UFOS.erase(UFOS.begin() + i);
+		if (!IsColliding(_Player->GetPos(), UFOS[i]->GetPos(), 0.5f, 0.5f)) {
 			score++;
+		}
+		else {
+			Gameover = true;
+			b_pauseMenu = true;
 		}
 	}
 }
@@ -104,36 +116,43 @@ void Level1::Update()
 void Level1::MoveCharacter(unsigned char KeyState[255])
 {
 	if (b_pauseMenu == true) {
-		if (KeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
-		{
-			if (selection == 0) {
-				selection = 1;
-				MenuUpdate();
+		if (Gameover == false) {
+			if (KeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
+			{
+				if (selection == 0) {
+					selection = 1;
+					MenuUpdate();
+				}
+				else {
+					selection--;
+					MenuUpdate();
+				}
 			}
-			else {
-				selection--;
-				MenuUpdate();
-			}
-		}
-		if (KeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
-		{
-			if (selection == 1) {
-				selection = 0;
-				MenuUpdate();
-			}
-			else {
-				selection++;
-				MenuUpdate();
+			if (KeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
+			{
+				if (selection == 1) {
+					selection = 0;
+					MenuUpdate();
+				}
+				else {
+					selection++;
+					MenuUpdate();
+				}
 			}
 		}
 		if (KeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
-			if (selection == 0) {
-				b_pauseMenu = false;
-				MenuUpdate();
-			}
-			else if (selection == 1) {
+			if (Gameover == true) {
 				nextScene = TOMAIN;
+			}
+			else {
+				if (selection == 0) {
+					b_pauseMenu = false;
+					MenuUpdate();
+				}
+				else if (selection == 1) {
+					nextScene = TOMAIN;
+				}
 			}
 		}
 	}
@@ -238,8 +257,13 @@ void Level1::MoveCharacter(unsigned char KeyState[255])
 }
 
 void Level1::MenuUpdate() {
-	for (int i = 0; i < pauseMenu.size(); i++) {
-		pauseMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	if (Gameover == true) {
+		pauseMenu[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
-	pauseMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	else {
+		for (int i = 0; i < pauseMenu.size(); i++) {
+			pauseMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		}
+		pauseMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	}
 }

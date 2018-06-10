@@ -68,5 +68,6 @@ private:
 	std::vector<TextLabel*> pauseMenu;
 	TextLabel * TempLabel;
 	int selection = 0;
+	bool Gameover = false;
 };
 
