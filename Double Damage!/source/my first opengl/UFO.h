@@ -9,6 +9,7 @@ public:
 	~UFO();
 	void Update();
 	void Render();
+	void setpos(glm::vec2);
 private:
 	float speed = 0.05f;
 	Model * UFOModel;

@@ -50,7 +50,8 @@ private:
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;
-	UFO * _UFO1;
+	std::vector<UFO*> UFOS;
+	UFO * TempUFO;
 	TextLabel * g_Score;
 	int score = 0;
 

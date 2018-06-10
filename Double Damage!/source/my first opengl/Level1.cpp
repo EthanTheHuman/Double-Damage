@@ -1,15 +1,13 @@
 #include "Level1.h"
 
-
-
 Level1::Level1()
 {
 }
 
-
 Level1::~Level1()
 {
 }
+
 void Level1::Init()
 {
 	MyCamera = new Camera(glm::vec3(0,5,-5), glm::vec3(0,0,0), glm::vec3(0,1,0));
@@ -29,9 +27,11 @@ void Level1::Init()
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	pauseMenu.push_back(TempLabel);
 
-
 	_Player = new Player(MyCamera, AmbientShader);
-	_UFO1 = new UFO(MyCamera, AmbientShader);
+
+	TempUFO = new UFO(MyCamera, AmbientShader);
+	TempUFO->setpos(glm::vec2(2.0f, 2.0f));
+	UFOS.push_back(TempUFO);
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");
 }
@@ -44,8 +44,12 @@ void Level1::Deconstruct()
 	}
 	pauseMenu.clear();
 	delete _Player;
-	delete _UFO1;
+	for (int i = 0; i < UFOS.size(); i++) {
+		delete UFOS[i];
+	}
+	UFOS.clear();
 	delete MySkybox;
+	delete g_Score;
 	nextScene = NOTHING;
 	b_pauseMenu = false;
 }
@@ -60,7 +64,9 @@ void Level1::Render()
 
 	//Render 3D objects
 	_Player->Render();
-	_UFO1->Render();
+	for (int i = 0; i < UFOS.size(); i++) {
+		UFOS[i]->Render();
+	}
 
 	if (b_pauseMenu == true) {
 		for (int i = 0; i < pauseMenu.size(); i++) {
@@ -76,9 +82,19 @@ void Level1::Render()
 void Level1::Update()
 {
 	_Player->Update();
-	_UFO1->Update();
+	for (int i = 0; i < UFOS.size(); i++) {
+		UFOS[i]->Update();
+	}
 	string TempString = "Score: " + ToString(score);
 	g_Score->SetText(TempString);
+
+	for (int i = 0; i < UFOS.size(); i++) {
+		if (IsColliding(_Player->GetPos(), UFOS[i]->GetPos(), 1.0f, 1.0f)) {
+			delete UFOS[i];
+			UFOS.erase(UFOS.begin() + i);
+			score++;
+		}
+	}
 }
 
 void Level1::MoveCharacter(unsigned char KeyState[255])
@@ -154,19 +170,19 @@ void Level1::MoveCharacter(unsigned char KeyState[255])
 		//Trios
 		else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD))
 		{
-			//_Player->SetRotation({ 0,90,0 });
+			_Player->SetRotation({ 0,90,0 });
 		}
 		else if ((KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
 		{
-			//_Player->SetRotation({ 0,180,0 });
+			_Player->SetRotation({ 0,180,0 });
 		}
 		else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'a'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
 		{
-			//_Player->SetRotation({ 0,0,0 });
+			_Player->SetRotation({ 0,0,0 });
 		}
 		else if ((KeyState[(unsigned char)'w'] == INPUT_HOLD) && (KeyState[(unsigned char)'s'] == INPUT_HOLD) && (KeyState[(unsigned char)'d'] == INPUT_HOLD))
 		{
-			//_Player->SetRotation({ 0,270,0 });
+			_Player->SetRotation({ 0,270,0 });
 		}
 
 		//Opposites

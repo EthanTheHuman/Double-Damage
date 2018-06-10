@@ -27,3 +27,9 @@ void UFO::Render()
 	UFOModel->SetTranslation({ m_x, m_y, m_z });
 	UFOModel->Render();
 }
+
+void UFO::setpos(glm::vec2 pos)
+{
+	m_x = pos.x;
+	m_z = pos.y;
+}
