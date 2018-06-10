@@ -17,9 +17,6 @@ public:
 private:
 	float speed = 0.05f;
 	Model * PlayerModel;
-	float x = 0.0f;
-	float y = 0.0f;
-	float z = 0.0f;
 	int i_Rotation;
 };
 

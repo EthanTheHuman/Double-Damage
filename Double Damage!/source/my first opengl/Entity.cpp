@@ -16,3 +16,8 @@ Entity::Entity(int _x, int _y)
 Entity::~Entity()
 {
 }
+
+glm::vec3 Entity::GetPos()
+{
+	return glm::vec3(m_x, m_y, m_z);
+}
