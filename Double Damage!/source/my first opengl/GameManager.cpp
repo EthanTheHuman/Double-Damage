@@ -35,7 +35,9 @@ void GameManager::render()
 
 void GameManager::update()
 {
-	pScenes[CurrentScene]->Update();
+	if (pScenes[CurrentScene]->b_pauseMenu == false) {
+		pScenes[CurrentScene]->Update();
+	}
 	if (pScenes[CurrentScene]->nextScene == true) {
 		CurrentScene++;
 		pScenes[CurrentScene]->Init();

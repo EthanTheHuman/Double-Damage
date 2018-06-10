@@ -1,7 +1,5 @@
 #include "MainMenu.h"
 
-
-TextLabel * TempLabel;
 MainMenu::MainMenu()
 {
 	MyCamera = new Camera(glm::vec3(0, 0, -3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
@@ -106,7 +104,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 			}
 		}
 	}
-	if (KeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
+	if (KeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 	{
 		if (menu == MAIN) {
 			if (selection == 0) {

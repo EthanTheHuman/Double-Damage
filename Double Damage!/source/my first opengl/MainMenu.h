@@ -61,4 +61,5 @@ private:
 	//menu stuff
 	int selection = 0;
 	Menus menu = MAIN;
+	TextLabel * TempLabel;
 };

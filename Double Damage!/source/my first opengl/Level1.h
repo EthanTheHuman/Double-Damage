@@ -39,13 +39,14 @@ public:
 	void Update();
 	void MoveCharacter(unsigned char KeyState[255]);
 
+	void MenuUpdate();
+
 private:
 	// List of objects
 	Camera * MyCamera;
 	Model * MyPyramid;
 	Sprite * KarateGuy1;
 	Sprite * KarateGuy2;
-	TextLabel * label;
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;
@@ -57,5 +58,10 @@ private:
 	GLuint AmbientShader;
 	GLuint TextShader;
 	GLuint SkyboxShader;
+
+	//menu stuff
+	std::vector<TextLabel*> pauseMenu;
+	TextLabel * TempLabel;
+	int selection = 0;
 };
 

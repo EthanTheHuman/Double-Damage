@@ -107,7 +107,6 @@ void update()
 }
 
 //Updated Keyboard Functions v3
-bool firstdown = false, firstup = false;
 void Keyboard_Down(unsigned char key, int x, int y) { KeyState[key] = INPUT_FIRST_PRESS; }
 void Keyboard_Up(unsigned char key, int x, int y) { KeyState[key] = INPUT_FIRST_RELEASE; }
 
