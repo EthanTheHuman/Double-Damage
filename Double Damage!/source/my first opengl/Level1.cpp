@@ -59,6 +59,7 @@ void Level1::Deconstruct()
 	nextScene = NOTHING;
 	b_pauseMenu = false;
 	score = 0;
+	Gameover = false;
 }
 
 void Level1::Render()
