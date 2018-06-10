@@ -2,6 +2,7 @@
 
 Level1::Level1()
 {
+	srand((unsigned)time(NULL));
 }
 
 Level1::~Level1()
@@ -10,7 +11,7 @@ Level1::~Level1()
 
 void Level1::Init()
 {
-	MyCamera = new Camera(glm::vec3(0,5,-5), glm::vec3(0,0,0), glm::vec3(0,1,0));
+	MyCamera = new Camera(glm::vec3(0,5,-7), glm::vec3(0,0,0), glm::vec3(0,1,0));
 	SpriteShader = shaderloader.CreateProgram("Shaders/Sprite.vs", "Shaders/Sprite.fs");
 	ModelBasicShader = shaderloader.CreateProgram("Shaders/ModelBasic.vs", "Shaders/ModelBasic.fs");
 	AmbientShader = shaderloader.CreateProgram("Shaders/Ambient.vs", "Shaders/Ambient.fs");
@@ -29,9 +30,12 @@ void Level1::Init()
 
 	_Player = new Player(MyCamera, AmbientShader);
 
-	TempUFO = new UFO(MyCamera, AmbientShader);
-	TempUFO->setpos(glm::vec2(2.0f, 2.0f));
-	UFOS.push_back(TempUFO);
+
+	for (int i = 0; i < 10; i++) {
+		TempUFO = new UFO(MyCamera, AmbientShader);
+		TempUFO->setpos(glm::vec2(-5 + rand() % 10, -5 + rand() % 10));
+		UFOS.push_back(TempUFO);
+	}
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");
 }

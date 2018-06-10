@@ -12,6 +12,8 @@
 #include "Dependencies\glm\gtc\type_ptr.hpp"
 #include <iterator>
 #include <map>
+#include <cmath>
+#include <time.h>
 
 #include "Camera.h"
 #include "GameManager.h"
