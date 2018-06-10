@@ -29,6 +29,7 @@ void render();
 
 void Keyboard_Down(unsigned char key, int x, int y);
 void Keyboard_Up(unsigned char key, int x, int y);
+void KeyboardUpdate();
 
 void update();
 Camera * MyCamera;
@@ -102,29 +103,23 @@ void update()
 
 	//PROBLEM BELLOW
 	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
+	KeyboardUpdate();
 }
 
-//Updated Keyboard Functions v2
+//Updated Keyboard Functions v3
 bool firstdown = false, firstup = false;
-void Keyboard_Down(unsigned char key, int x, int y) {
-	if (firstdown == false) {
-		KeyState[key] = INPUT_FIRST_PRESS;
-		firstdown = true;
-		firstup = false;
-		Keyboard_Down(key, x, y);
+void Keyboard_Down(unsigned char key, int x, int y) { KeyState[key] = INPUT_FIRST_PRESS; }
+void Keyboard_Up(unsigned char key, int x, int y) { KeyState[key] = INPUT_FIRST_RELEASE; }
+
+void KeyboardUpdate() {
+	for (int i = 0; i < 255; i++) {
+		if (KeyState[i] == INPUT_FIRST_PRESS) {
+			KeyState[i] = INPUT_HOLD;
+		}
 	}
-	else {
-		KeyState[key] = INPUT_HOLD;
-	}
-}
-void Keyboard_Up(unsigned char key, int x, int y) {
-	if (firstup == false) {
-		KeyState[key] = INPUT_FIRST_RELEASE;
-		firstup = true;
-		firstdown = false;
-		Keyboard_Up(key, x, y);
-	}
-	else {
-		KeyState[key] = INPUT_RELEASED;
+	for (int i = 0; i < 255; i++) {
+		if (KeyState[i] == INPUT_FIRST_RELEASE) {
+			KeyState[i] = INPUT_RELEASED;
+		}
 	}
 }

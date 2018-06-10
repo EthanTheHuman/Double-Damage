@@ -36,6 +36,10 @@ void GameManager::render()
 void GameManager::update()
 {
 	pScenes[CurrentScene]->Update();
+	if (pScenes[CurrentScene]->nextScene == true) {
+		CurrentScene++;
+		pScenes[CurrentScene]->Init();
+	}
 }
 
 Scene* GameManager::CurrentSceneClass()

@@ -14,5 +14,6 @@ public:
 
 	Camera MyCamera;
 	GLuint MyProgram;
+	bool nextScene = false;
 };
 

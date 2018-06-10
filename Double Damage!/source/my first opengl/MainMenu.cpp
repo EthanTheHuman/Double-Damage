@@ -13,11 +13,31 @@ MainMenu::MainMenu()
 
 	TempLabel = new TextLabel("Play", "fonts/arial.ttf", glm::vec2(100, 50));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	label.push_back(TempLabel);
+	mainMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Controls", "fonts/arial.ttf", glm::vec2(300, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	mainMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Exit", "fonts/arial.ttf", glm::vec2(600, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	mainMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Solo", "fonts/arial.ttf", glm::vec2(100, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	playMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Co op", "fonts/arial.ttf", glm::vec2(300, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	playMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(600, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	playMenu.push_back(TempLabel);
 
 	_Player = new Player(MyCamera, AmbientShader);
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Space/bkg1_top.png", "Space/bkg1_bot.png", "Space/bkg1_right.png", "Space/bkg1_left.png", "Space/bkg1_front.png", "Space/bkg1_back.png");
-
+	MenuUpdate();
 }
 
 void MainMenu::Render()
@@ -28,7 +48,19 @@ void MainMenu::Render()
 	//Background
 	MySkybox->Render();
 	_Player->Render();
-	for (auto It = label->begin(); It != label->end(); ++It)
+	if (menu == MAIN) {
+		for (int i = 0; i < mainMenu.size(); i++) {
+			mainMenu[i]->Render();
+		}
+	}
+	else if (menu == PLAY) {
+		for (int i = 0; i < playMenu.size(); i++) {
+			playMenu[i]->Render();
+		}
+	}
+	else if (menu == CONTROL) {
+
+	}
 }
 
 
@@ -47,6 +79,76 @@ MainMenu::~MainMenu()
 {
 }
 
-void MainMenu::Init()
-{
+void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
+	if (KeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS)
+	{
+		if (menu != CONTROL) {
+			if (selection == 0) {
+				selection = 2;
+				MenuUpdate();
+			}
+			else {
+				selection--;
+				MenuUpdate();
+			}
+		}
+	}
+	if (KeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS)
+	{
+		if (menu != CONTROL) {
+			if (selection == 2) {
+				selection = 0;
+				MenuUpdate();
+			}
+			else {
+				selection++;
+				MenuUpdate();
+			}
+		}
+	}
+	if (KeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
+	{
+		if (menu == MAIN) {
+			if (selection == 0) {
+				menu = PLAY;
+				MenuUpdate();
+			}
+			else if (selection == 1) {
+				menu = CONTROL;
+				MenuUpdate();
+			}
+			else if (selection == 2) {
+				//exit
+			}
+		}
+		else if (menu == PLAY) {
+			if (selection == 0) {
+				//play in singleplayer
+				nextScene = true;
+			}
+			if (selection == 1) {
+				//play in miltiplayer
+			}
+			if (selection == 2) {
+				menu = MAIN;
+				selection = 0;
+				MenuUpdate();
+			}
+		}
+	}
+}
+
+void MainMenu::MenuUpdate() {
+	if (menu == MAIN) {
+		for (int i = 0; i < mainMenu.size(); i++) {
+			mainMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		}
+		mainMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	}
+	else if (menu == PLAY) {
+		for (int i = 0; i < playMenu.size(); i++) {
+			playMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		}
+		playMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	}
 }

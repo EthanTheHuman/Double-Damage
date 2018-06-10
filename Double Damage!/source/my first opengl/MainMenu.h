@@ -25,20 +25,28 @@
 #include "UFO.h"
 #include "dependencies\FMOD\fmod.hpp"
 
+enum Menus {
+	MAIN,
+	PLAY,
+	CONTROL
+};
+
 class MainMenu :
 	public Scene
 {
 public:
 	MainMenu();
 	~MainMenu();
-	void Init();
 	void Render();
 	void Update();
+	void MoveCharacter(unsigned char KeyState[255]);
+	void MenuUpdate();
 
 private:
 	// List of objects
 	Camera * MyCamera;
-	std::vector<TextLabel*> label;
+	std::vector<TextLabel*> mainMenu;
+	std::vector<TextLabel*> playMenu;
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;
@@ -49,4 +57,8 @@ private:
 	GLuint AmbientShader;
 	GLuint TextShader;
 	GLuint SkyboxShader;
+
+	//menu stuff
+	int selection = 0;
+	Menus menu = MAIN;
 };
