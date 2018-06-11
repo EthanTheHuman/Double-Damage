@@ -43,6 +43,9 @@ void Player::horizontal(bool _direction)
 
 void Player::Update()
 {
+	m_Direction = {m_x - TempX, 0, m_z - TempZ };
+	TempX = m_x;
+	TempZ = m_z;
 }
 
 void Player::Render()
@@ -54,4 +57,9 @@ void Player::Render()
 void Player::SetRotation(glm::vec3 _rotation)
 {
 	PlayerModel->SetRotation(_rotation);
+}
+
+glm::vec3 Player::GetPosition()
+{
+	return m_Direction;
 }
