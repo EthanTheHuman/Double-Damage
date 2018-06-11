@@ -36,8 +36,9 @@ void Level1::Init()
 	_Player = new Player(MyCamera, AmbientShader);
 
 	TempUFO = new UFO(MyCamera, AmbientShader);
-	TempUFO->setpos(glm::vec2(-5 + rand() % 10, -5 + rand() % 10));
-	TempUFO->setType(SEEK);
+	//TempUFO->setpos(glm::vec2(-5 + rand() % 10, -5 + rand() % 10));
+	TempUFO->setpos(glm::vec2(-3, -3));
+	TempUFO->setType(ARRIVAL);
 	UFOS.push_back(TempUFO);
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");
@@ -99,7 +100,7 @@ void Level1::Update()
 {
 	_Player->Update();
 	for (int i = 0; i < UFOS.size(); i++) {
-		UFOS[i]->Update(_Player->GetPos());
+		UFOS[i]->Update(_Player->GetPos(), _Player->GetPosition());
 	}
 	string TempString = "Score: " + ToString(score);
 	g_Score->SetText(TempString);

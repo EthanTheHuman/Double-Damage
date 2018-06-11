@@ -19,9 +19,10 @@ UFO::~UFO()
 }
 
 
-void UFO::Update(glm::vec3 C1)
+void UFO::Update(glm::vec3 C1, glm::vec3 C2)
 {
-	if (_Type == SEEK) {
+	if (_Type == SEEK)
+	{
 		if (DistanceTo(C1, glm::vec3(m_x, m_y, m_z), 5)) {
 			temp = C1;
 		}
@@ -34,6 +35,48 @@ void UFO::Update(glm::vec3 C1)
 		else {
 			ticks--;
 		}
+	}
+	else if (_Type == PURSUE)
+	{
+		if (DistanceTo(C1, glm::vec3(m_x, m_y, m_z), 5)) {
+			temp = C1;
+		}
+		else if (ticks == 0) {
+			temp.x = m_x - 5 + rand() % 10;
+			temp.y = 0.0f;
+			temp.z = m_z - 5 + rand() % 10;
+			ticks = 100;
+		}
+		else {
+			ticks--;
+		}
+		temp.x = temp.x + (C2.x * 5);
+		temp.y = temp.y + (C2.y * 5);
+	}
+
+	if (_Type == ARRIVAL)
+	{
+		if (DistanceTo(C1, glm::vec3(m_x, m_y, m_z), 5)) {
+			temp = C1;
+		}
+		else if (ticks == 0) {
+			temp.x = m_x - 5 + rand() % 10;
+			temp.y = 0.0f;
+			temp.z = m_z - 5 + rand() % 10;
+			ticks = 100;
+		}
+		else {
+			ticks--;
+		}
+		float distance = sqrt(pow(temp.x - m_x, 2) + pow(temp.z - m_z, 2));
+		float directionX = (temp.x - m_x) / distance;
+		float directionY = (temp.z - m_z) / distance;
+
+		m_x += directionX * (distance * speed)/2;
+		m_z += directionY * (distance * speed)/2;
+	}
+	else
+	{
 		float distance = sqrt(pow(temp.x - m_x, 2) + pow(temp.z - m_z, 2));
 		float directionX = (temp.x - m_x) / distance;
 		float directionY = (temp.z - m_z) / distance;

@@ -6,7 +6,8 @@
 
 enum Type {
 	SEEK,
-	PURSUE
+	PURSUE,
+	ARRIVAL
 };
 class UFO :
 	public Entity
@@ -15,7 +16,7 @@ public:
 	UFO();
 	UFO(Camera * _Camera, GLuint _Shader);
 	~UFO();
-	void Update(glm::vec3);
+	void Update(glm::vec3 C1, glm::vec3 C2);
 	void Render();
 	void setpos(glm::vec2);
 	void setType(Type);
