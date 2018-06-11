@@ -17,6 +17,7 @@
 #include "GameManager.h"
 #include "Sound.h"
 #include "Sprite.h"
+#include "UISprite.h"
 #include "Model.h"
 #include "TextLabel.h"
 #include "Utils.h"
@@ -52,9 +53,12 @@ private:
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;
+	UISprite * Title;
+	UISprite * Controls;
 
 	// List of Shaders
 	GLuint SpriteShader;
+	GLuint UISpriteShader;
 	GLuint ModelBasicShader;
 	GLuint AmbientShader;
 	GLuint TextShader;

@@ -12,6 +12,8 @@
 #include "Dependencies\glm\gtc\type_ptr.hpp"
 #include <iterator>
 #include <map>
+#include <cmath>
+#include <time.h>
 
 #include "Camera.h"
 #include "GameManager.h"
@@ -50,7 +52,8 @@ private:
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;
-	UFO * _UFO1;
+	std::vector<UFO*> UFOS;
+	UFO * TempUFO;
 	TextLabel * g_Score;
 	int score = 0;
 
@@ -65,5 +68,6 @@ private:
 	std::vector<TextLabel*> pauseMenu;
 	TextLabel * TempLabel;
 	int selection = 0;
+	bool Gameover = false;
 };
 

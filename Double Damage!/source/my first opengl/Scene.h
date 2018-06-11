@@ -19,6 +19,7 @@ public:
 	virtual void Deconstruct();
 	virtual void Render();
 	virtual void MoveCharacter(unsigned char KeyState[255]);
+	virtual bool IsColliding(glm::vec3, glm::vec3, float, float);
 
 	Camera MyCamera;
 	GLuint MyProgram;

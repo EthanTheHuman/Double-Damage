@@ -152,9 +152,11 @@
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="socket.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextLabel.cpp" />
     <ClCompile Include="UFO.cpp" />
+    <ClCompile Include="UISprite.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +179,11 @@
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="socket.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="UFO.h" />
+    <ClInclude Include="UISprite.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Utils2.h" />
     <ClInclude Include="WorkQueue.h" />
@@ -195,6 +199,8 @@
     <None Include="Shaders\Sprite.vs" />
     <None Include="Shaders\Text.fs" />
     <None Include="Shaders\Text.vs" />
+    <None Include="Shaders\UISprite.fs" />
+    <None Include="Shaders\UISprite.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
