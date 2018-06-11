@@ -69,5 +69,6 @@ private:
 	TextLabel * TempLabel;
 	int selection = 0;
 	bool Gameover = false;
+	Type UiType = SEEK;
 };
 

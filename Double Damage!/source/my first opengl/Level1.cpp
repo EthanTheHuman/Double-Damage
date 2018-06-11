@@ -24,7 +24,11 @@ void Level1::Init()
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	pauseMenu.push_back(TempLabel);
 
-	TempLabel = new TextLabel("Back To Main Menu", "fonts/arial.ttf", glm::vec2(100, 200));
+	TempLabel = new TextLabel("Ai Mode: Seek", "fonts/arial.ttf", glm::vec2(100, 200));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	pauseMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Back To Main Menu", "fonts/arial.ttf", glm::vec2(100, 300));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	pauseMenu.push_back(TempLabel);
 
@@ -38,7 +42,7 @@ void Level1::Init()
 	TempUFO = new UFO(MyCamera, AmbientShader);
 	//TempUFO->setpos(glm::vec2(-5 + rand() % 10, -5 + rand() % 10));
 	TempUFO->setpos(glm::vec2(-3, -3));
-	TempUFO->setType(ARRIVAL);
+	TempUFO->setType(SEEK);
 	UFOS.push_back(TempUFO);
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");
@@ -81,11 +85,11 @@ void Level1::Render()
 	if (b_pauseMenu == true) {
 		if (Gameover == true) {
 			MenuUpdate();
-			pauseMenu[1]->Render();
 			pauseMenu[2]->Render();
+			pauseMenu[3]->Render();
 		}
 		else {
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < 3; i++) {
 				pauseMenu[i]->Render();
 			}
 		}
@@ -123,7 +127,7 @@ void Level1::MoveCharacter(unsigned char KeyState[255])
 			if (KeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
 			{
 				if (selection == 0) {
-					selection = 1;
+					selection = 2;
 					MenuUpdate();
 				}
 				else {
@@ -133,7 +137,7 @@ void Level1::MoveCharacter(unsigned char KeyState[255])
 			}
 			if (KeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
 			{
-				if (selection == 1) {
+				if (selection == 2) {
 					selection = 0;
 					MenuUpdate();
 				}
@@ -154,6 +158,23 @@ void Level1::MoveCharacter(unsigned char KeyState[255])
 					MenuUpdate();
 				}
 				else if (selection == 1) {
+					if (UiType == SEEK) {
+						UiType = PURSUE;
+						UFOS[0]->setType(UiType);
+						pauseMenu[1]->SetText("Ai Mode : Pursue");
+					}
+					else if (UiType == PURSUE) {
+						UiType = ARRIVAL;
+						UFOS[0]->setType(UiType);
+						pauseMenu[1]->SetText("Ai Mode : Arrival");
+					}
+					else if (UiType == ARRIVAL) {
+						UiType = SEEK;
+						UFOS[0]->setType(UiType);
+						pauseMenu[1]->SetText("Ai Mode : Seek");
+					}
+				}
+				else if (selection == 2) {
 					nextScene = TOMAIN;
 				}
 			}
