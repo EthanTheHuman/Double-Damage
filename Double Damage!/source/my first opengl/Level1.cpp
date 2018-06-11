@@ -37,6 +37,7 @@ void Level1::Init()
 
 	TempUFO = new UFO(MyCamera, AmbientShader);
 	TempUFO->setpos(glm::vec2(-5 + rand() % 10, -5 + rand() % 10));
+	TempUFO->setType(SEEK);
 	UFOS.push_back(TempUFO);
 
 	MySkybox = new CubeMap(MyCamera, SkyboxShader, "Citadel/top.jpg", "Citadel/bottom.jpg", "Citadel/left.jpg", "Citadel/right.jpg", "Citadel/front.jpg", "Citadel/back.jpg");

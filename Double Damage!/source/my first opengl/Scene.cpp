@@ -48,12 +48,10 @@ void Scene::MoveCharacter(unsigned char KeyState[255])
 	}
 }
 
-int Sqr(int num) { return num * num; };
-
 bool Scene::IsColliding(glm::vec3 C1, glm::vec3 C2, float R1, float R2)
 {
 	glm::vec3 temp(C2.x - C1.x, C2.y - C1.y, C2.z - C1.z);
-	float distance = sqrt(Sqr(temp.x) + Sqr(temp.y) + Sqr(temp.z));
+	float distance = sqrt((temp.x * temp.x) + (temp.y * temp.y) + (temp.z * temp.z));
 	if (distance < R1 + R2) {
 		return true;
 	}

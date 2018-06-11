@@ -1,6 +1,13 @@
 #pragma once
 #include "Entity.h"
 #include <cmath>
+#include <time.h>
+#include "Utils2.h"
+
+enum Type {
+	SEEK,
+	PURSUE
+};
 class UFO :
 	public Entity
 {
@@ -11,8 +18,13 @@ public:
 	void Update(glm::vec3);
 	void Render();
 	void setpos(glm::vec2);
+	void setType(Type);
+	bool DistanceTo(glm::vec3, glm::vec3, float);
 private:
 	float speed = 0.02f;
 	Model * UFOModel;
 	float m_y = -0.1f;
+	Type _Type;
+	int ticks = 100;
+	glm::vec3 temp;
 };
