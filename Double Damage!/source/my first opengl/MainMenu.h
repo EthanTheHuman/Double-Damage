@@ -30,7 +30,9 @@ enum Menus {
 	MAIN,
 	PLAY,
 	CONTROL,
-	COOP
+	COOP,
+	HOST,
+	JOIN
 };
 
 class MainMenu :
@@ -52,6 +54,8 @@ private:
 	std::vector<TextLabel*> mainMenu;
 	std::vector<TextLabel*> playMenu;
 	std::vector<TextLabel*> coopMenu;
+	std::vector<TextLabel*> hostMenu;
+	std::vector<TextLabel*> joinMenu;
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;

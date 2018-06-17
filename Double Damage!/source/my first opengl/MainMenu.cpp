@@ -50,6 +50,76 @@ void MainMenu::Init()
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	coopMenu.push_back(TempLabel);
 
+	//-------------------------------------------------------------------------------------------------------------
+
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 500));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 450));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 400));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 350));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostMenu.push_back(TempLabel);
+
+	//-------------------------------------------------------------------------------------------------------------
+
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 500));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 450));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 400));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 350));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 300));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 250));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 200));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 150));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 100));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	//-------------------------------------------------------------------------------------------------------------
+
 	Title = new UISprite("Textures/Cubemap/Title.png", MyCamera, UISpriteShader);
 	Title->SetScale({ 0.3, 0.3, 0.3 });
 	Title->SetTranslation({ 0, 0.5, 0 });
@@ -112,6 +182,16 @@ void MainMenu::Render()
 	}
 	else if (menu == CONTROL) {
 		Controls->render();
+	}
+	else if (menu == HOST) {
+		for (int i = 0; i < hostMenu.size(); i++) {
+			hostMenu[i]->Render();
+		}
+	}
+	else if (menu == JOIN) {
+		for (int i = 0; i < joinMenu.size(); i++) {
+			joinMenu[i]->Render();
+		}
 	}
 }
 
@@ -178,13 +258,13 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 				//play in singleplayer
 				nextScene = NEXT;
 			}
-			if (selection == 1) {
+			else if (selection == 1) {
 				//play in multiplayer
 				menu = COOP;
 				selection = 0;
 				MenuUpdate();
 			}
-			if (selection == 2) {
+			else if (selection == 2) {
 				menu = MAIN;
 				selection = 0;
 				MenuUpdate();
@@ -193,15 +273,32 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		else if (menu == COOP) {
 			if (selection == 0) {
 				//Host
+				menu = HOST;
 				Networkmode = 1;
 			}
-			if (selection == 1) {
+			else if (selection == 1) {
 				//Join
+				menu = JOIN;
+				selection = 0;
 				Networkmode = 2;
 			}
-			if (selection == 2) {
+			else if (selection == 2) {
 				menu = PLAY;
 				selection = 1;
+				MenuUpdate();
+			}
+		}
+		else if (menu == HOST)
+		{
+			if (selection == 0) {
+				menu = PLAY;
+				MenuUpdate();
+			}
+		}
+		else if (menu == JOIN)
+		{
+			if (selection == 0) {
+				menu = PLAY;
 				MenuUpdate();
 			}
 		}
@@ -211,6 +308,54 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		if (menu == CONTROL)
 		{
 			menu = MAIN;
+			MenuUpdate();
+		}
+	}
+	if (KeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
+	{
+		if (menu == HOST) {
+			if (selection == 0) {
+				selection = 4;
+				MenuUpdate();
+			}
+			else {
+				selection--;
+				MenuUpdate();
+			}
+		}
+	}
+		else if (menu == JOIN)
+		{
+			if (selection == 0) {
+				selection = 10;
+				MenuUpdate();
+			}
+			else {
+				selection--;
+				MenuUpdate();
+			}
+	}
+	if (KeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
+	{
+		if (menu == HOST) {
+			if (selection == 4) {
+				selection = 0;
+				MenuUpdate();
+			}
+			else {
+				selection++;
+				MenuUpdate();
+			}
+		}
+	}
+	else if (menu == JOIN)
+	{
+		if (selection == 10) {
+			selection = 0;
+			MenuUpdate();
+		}
+		else {
+			selection++;
 			MenuUpdate();
 		}
 	}
@@ -234,5 +379,17 @@ void MainMenu::MenuUpdate() {
 			coopMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 		}
 		coopMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	}
+	else if (menu == HOST) {
+		for (int i = 0; i < hostMenu.size(); i++) {
+			hostMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		}
+		hostMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	}
+	else if (menu == JOIN) {
+		for (int i = 0; i < joinMenu.size(); i++) {
+			joinMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		}
+		joinMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
 }
