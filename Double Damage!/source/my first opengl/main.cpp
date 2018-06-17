@@ -141,6 +141,20 @@ void render()
 void update()
 {
 	glutPostRedisplay();
+
+	if (GameManager::GetInstance()->CurrentScene == 0)
+	{
+		//Host
+		if (GameManager::GetInstance()->CurrentSceneClass.Networkmode == 1)
+		{
+
+		}
+		//Join
+		else if (GameManager::GetInstance()->CurrentSceneClass.Networkmode == 2)
+		{
+
+		}
+	}
 	//Updated Move Function
 
 	//PROBLEM BELLOW

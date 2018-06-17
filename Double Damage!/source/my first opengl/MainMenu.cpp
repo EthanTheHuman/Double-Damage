@@ -179,7 +179,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 				nextScene = NEXT;
 			}
 			if (selection == 1) {
-				//play in miltiplayer
+				//play in multiplayer
 				menu = COOP;
 				MenuUpdate();
 			}
@@ -191,10 +191,12 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		}
 		else if (menu == COOP) {
 			if (selection == 0) {
-				//play in singleplayer
+				//Host
+				Networkmode = 1;
 			}
 			if (selection == 1) {
-				//play in miltiplayer
+				//Join
+				Networkmode = 2;
 			}
 			if (selection == 2) {
 				menu = PLAY;
@@ -228,7 +230,7 @@ void MainMenu::MenuUpdate() {
 	}
 	else if (menu == COOP) {
 		for (int i = 0; i < coopMenu.size(); i++) {
-			playMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+			coopMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 		}
 		coopMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}

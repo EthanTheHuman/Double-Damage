@@ -25,5 +25,6 @@ public:
 	GLuint MyProgram;
 	SceneTransition nextScene = NOTHING;
 	bool b_pauseMenu = false;
+	int Networkmode = 0;
 };
 
