@@ -52,6 +52,8 @@ public:
 	//Qs7 : Broadcast to Detect Servers
 	bool BroadcastForServers();
 
+	std::vector<std::string> RetreveBroadcast();
+
 private:
 	// Question 7 : Broadcast to Detect Servers
 	void ReceiveBroadcastMessages(char* _pcBufferToReceiveData);

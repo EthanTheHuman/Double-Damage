@@ -178,7 +178,7 @@ bool CClient::BroadcastForServers()
 	m_ServerSocketAddress.sin_family = AF_INET;
 	m_ServerSocketAddress.sin_addr.S_un.S_addr = INADDR_BROADCAST;
 
-	for (int i = 0; i < 10; i++) //Just try  a series of 10 ports to detect a runmning server; this is needed since we are testing multiple servers on the same local machine
+	for (int i = 0; i < 10; i++) //Just try  a series of 10 ports to detect a running server; this is needed since we are testing multiple servers on the same local machine
 	{
 		m_ServerSocketAddress.sin_port = htons(DEFAULT_SERVER_PORT + i);
 		SendData(_packet.PacketData);
@@ -187,6 +187,16 @@ bool CClient::BroadcastForServers()
 
 	return true;
 
+}
+
+std::vector<std::string> CClient::RetreveBroadcast()
+{
+	std::vector<std::string> temp;
+	for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
+	{
+		temp.push_back(ToString(m_vecServerAddr[i]));
+	}
+	return temp;
 }
 
 void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
@@ -310,7 +320,6 @@ void CClient::ReceiveData(char* _pcBufferToReceiveData)
 		{
 			//There is valid data received.
 			strcpy_s(m_pcPacketData, strlen(_buffer) + 1, _buffer);
-			//strcpy_s(m_pcPacketData, strlen(_buffer) + 1, _buffer);
 			//Put this packet data in the workQ
 			m_ServerSocketAddress = _FromAddress;
 			m_pWorkQueue->push(m_pcPacketData);
