@@ -46,6 +46,10 @@ void MainMenu::Init()
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	coopMenu.push_back(TempLabel);
 
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(600, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	coopMenu.push_back(TempLabel);
+
 	Title = new UISprite("Textures/Cubemap/Title.png", MyCamera, UISpriteShader);
 	Title->SetScale({ 0.3, 0.3, 0.3 });
 	Title->SetTranslation({ 0, 0.5, 0 });
@@ -70,6 +74,10 @@ void MainMenu::Deconstruct()
 		delete playMenu[i];
 	}
 	playMenu.clear();
+	for (int i = 0; i < coopMenu.size(); i++) {
+		delete coopMenu[i];
+	}
+	coopMenu.clear();
 	delete _Player;
 	delete MySkybox;
 	nextScene = NOTHING;
@@ -95,6 +103,11 @@ void MainMenu::Render()
 	else if (menu == PLAY) {
 		for (int i = 0; i < playMenu.size(); i++) {
 			playMenu[i]->Render();
+		}
+	}
+	else if (menu == COOP) {
+		for (int i = 0; i < coopMenu.size(); i++) {
+			coopMenu[i]->Render();
 		}
 	}
 	else if (menu == CONTROL) {
@@ -176,13 +189,25 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 				MenuUpdate();
 			}
 		}
+		else if (menu == COOP) {
+			if (selection == 0) {
+				//play in singleplayer
+			}
+			if (selection == 1) {
+				//play in miltiplayer
+			}
+			if (selection == 2) {
+				menu = PLAY;
+				selection = 1;
+				MenuUpdate();
+			}
+		}
 	}
 	if (KeyState[(unsigned char)'\x1b'] == INPUT_FIRST_PRESS)
 	{
 		if (menu == CONTROL)
 		{
 			menu = MAIN;
-			selection = 0;
 			MenuUpdate();
 		}
 	}
