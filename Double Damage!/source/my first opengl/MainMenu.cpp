@@ -181,6 +181,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 			if (selection == 1) {
 				//play in miltiplayer
 				menu = COOP;
+				selection = 0;
 				MenuUpdate();
 			}
 			if (selection == 2) {
@@ -228,7 +229,7 @@ void MainMenu::MenuUpdate() {
 	}
 	else if (menu == COOP) {
 		for (int i = 0; i < coopMenu.size(); i++) {
-			playMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+			coopMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 		}
 		coopMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
