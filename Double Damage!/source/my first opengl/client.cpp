@@ -365,6 +365,10 @@ void CClient::ProcessData(char* _pcDataReceived)
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << _packetRecvd.MessageContent << std::endl;
 		break;
+
+		TPacket _packet;
+		_packet.Serialize(DATA, _cUserName);
+		SendData(_packet.PacketData);
 	}
 	case KEEPALIVE:
 	{

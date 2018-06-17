@@ -17,6 +17,7 @@
 
 #include <string>
 #include <sstream>
+#include "Entity.h"
 
 enum EMessageType : unsigned char
 {
@@ -65,11 +66,37 @@ struct TPacket
 		std::string _tempMessageBuffer;
 		getline(iss, _tempMessageBuffer);
 		strcpy_s(MessageContent, _tempMessageBuffer.length() + 1, _tempMessageBuffer.c_str());
-		
-		
 		return *this;
 	}
 
+	const char* ObjectCompresion(glm::vec3 pos)
+	{
+
+		std::ostringstream oss;
+		oss << pos.x;
+		oss << " ";
+		oss << pos.y;
+		oss << " ";
+		oss << pos.z;
+
+		std::string _strToSend = oss.str();
+		const char* _pcToSend = _strToSend.c_str();
+		return _pcToSend;
+	}
+
+	glm::vec3 ObjectUnpacking(char* _PacketData)
+	{
+		std::string _strTemp(_PacketData);
+		std::istringstream iss(_strTemp);
+
+		glm::vec3 temp;
+
+		iss >> temp.x;
+		iss >> temp.y;
+		iss >> temp.z;
+
+		return temp;
+	}
 };
 
 class INetworkEntity
