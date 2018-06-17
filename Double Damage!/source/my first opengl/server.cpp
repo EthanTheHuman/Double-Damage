@@ -58,7 +58,7 @@ bool CServer::Initialise()
 	m_pServerSocket = new CSocket();
 
 	//Get the port number to bind the socket to
-	unsigned short _usServerPort = QueryPortNumber(DEFAULT_SERVER_PORT);
+	unsigned short _usServerPort = DEFAULT_SERVER_PORT;
 
 	//Initialise the socket to the local loop back address and port number
 	if (!m_pServerSocket->Initialise(_usServerPort))

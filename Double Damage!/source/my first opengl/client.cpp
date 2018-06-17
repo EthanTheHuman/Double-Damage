@@ -87,7 +87,7 @@ bool CClient::Initialise()
 	m_pClientSocket = new CSocket();
 
 	//Get the port number to bind the socket to
-	unsigned short _usClientPort = QueryPortNumber(DEFAULT_CLIENT_PORT);
+	unsigned short _usClientPort = DEFAULT_CLIENT_PORT;
 	//Initialise the socket to the port number
 	if (!m_pClientSocket->Initialise(_usClientPort))
 	{
@@ -137,37 +137,6 @@ bool CClient::Initialise()
 			}
 			m_bDoBroadcast = false;
 			m_pClientSocket->DisableBroadcast();
-			break;
-		}
-		case 'M':
-		{
-			std::cout << "Enter server IP or empty for localhost: ";
-
-			gets_s(_cServerIPAddress);
-			if (_cServerIPAddress[0] == 0)
-			{
-				strcpy_s(_cServerIPAddress, "127.0.0.1");
-			}
-			//Get the Port Number of the server
-			std::cout << "Enter server's port number or empty for default server port: ";
-			gets_s(_cServerPort);
-			//std::cin >> _usServerPort;
-
-			if (_cServerPort[0] == 0)
-			{
-				_usServerPort = DEFAULT_SERVER_PORT;
-			}
-			else
-			{
-				_usServerPort = atoi(_cServerPort);
-			}
-			//Fill in the details of the server's socket address structure.
-			//This will be used when stamping address on outgoing packets
-			m_ServerSocketAddress.sin_family = AF_INET;
-			m_ServerSocketAddress.sin_port = htons(_usServerPort);
-			inet_pton(AF_INET, _cServerIPAddress, &m_ServerSocketAddress.sin_addr);
-			_bServerChosen = true;
-			std::cout << "Attempting to connect to server at " << _cServerIPAddress << ":" << _usServerPort << std::endl;
 			break;
 		}
 		default:

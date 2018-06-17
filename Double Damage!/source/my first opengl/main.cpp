@@ -64,8 +64,6 @@ TextLabel * label;
 
 CubeMap * MySkybox;
 
-bool NetworkToggle = false;
-
 unsigned char KeyState[255]; // Global
 
 char* _pcPacketData = 0; //A local buffer to receive packet data info
@@ -143,35 +141,27 @@ void render()
 void update()
 {
 	glutPostRedisplay();
-
-	if (GameManager::GetInstance()->CurrentScene == 0)
-	{
-		//Host
-		if (GameManager::GetInstance()->CurrentSceneClass.Networkmode == 1)
+	if (!_rNetwork.IsOnline()) {
+		if (GameManager::GetInstance()->CurrentScene == 0)
 		{
-
-		}
-		//Join
-		else if (GameManager::GetInstance()->CurrentSceneClass.Networkmode == 2)
-		{
-
+			//Host
+			if (GameManager::GetInstance()->CurrentSceneClass()->Networkmode == 1)
+			{
+				_eNetworkEntityType = SERVER;
+				StartNetwork();
+			}
+			//Join
+			else if (GameManager::GetInstance()->CurrentSceneClass()->Networkmode == 2)
+			{
+				_eNetworkEntityType = CLIENT;
+				StartNetwork();
+			}
 		}
 	}
 	//Updated Move Function
-
-	//PROBLEM BELLOW
 	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
 	KeyboardUpdate();
 	UpdateNetwork();
-	if (NetworkToggle) {
-		NetworkToggle = false;
-		if ((_rNetwork.IsOnline())) {
-			ShutDownNetwork();
-		}
-		else {
-			StartNetwork();
-		}
-	}
 }
 
 //Updated Keyboard Functions v3
@@ -197,28 +187,6 @@ void StartNetwork()
 	strcpy_s(_pcPacketData, strlen("") + 1, "");
 
 	_rNetwork.StartUp();
-
-	// query, is this to be a client or a server?
-	_ucChoice = QueryOption("Do you want to run a client or server (C/S)?", "CS");
-	switch (_ucChoice)
-	{
-	case 'C':
-	{
-		_eNetworkEntityType = CLIENT;
-		break;
-	}
-	case 'S':
-	{
-		_eNetworkEntityType = SERVER;
-		break;
-	}
-	default:
-	{
-		std::cout << "This is not a valid option" << std::endl;
-		return;
-		break;
-	}
-	}
 	if (!_rNetwork.GetInstance().Initialise(_eNetworkEntityType))
 	{
 		std::cout << "Unable to initialise the Network........Press any key to continue......";
