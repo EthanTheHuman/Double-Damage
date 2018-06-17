@@ -20,6 +20,23 @@
 #include "CubeMap.h"
 #include "dependencies\FMOD\fmod.hpp"
 
+//Library Includes
+#include <Windows.h>
+#include <cassert>
+//#include <vld.h>
+#include <thread>
+
+//Local Includes
+#include "consoletools.h"
+#include "network.h"
+#include "client.h"
+#include "server.h"
+#include "InputLineBuffer.h"
+#include <functional>
+
+// make sure the winsock lib is included...
+#pragma comment(lib,"ws2_32.lib")
+
 // Namespace
 using namespace std;
 
@@ -32,6 +49,12 @@ void Keyboard_Up(unsigned char key, int x, int y);
 void KeyboardUpdate();
 
 void update();
+
+void StartNetwork();
+void UpdateNetwork();
+void ShutDownNetwork();
+
+//Global Var
 Camera * MyCamera;
 Model * MyPyramid;
 Sprite * KarateGuy1;
@@ -42,6 +65,25 @@ TextLabel * label;
 CubeMap * MySkybox;
 
 unsigned char KeyState[255]; // Global
+
+char* _pcPacketData = 0; //A local buffer to receive packet data info
+
+char _cIPAddress[MAX_ADDRESS_LENGTH]; // An array to hold the IP Address as a string
+//ZeroMemory(&_cIPAddress, strlen(_cIPAddress));
+
+unsigned char _ucChoice;
+EEntityType _eNetworkEntityType;
+CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
+
+std::thread _ClientReceiveThread, _ServerReceiveThread;
+
+//Get the instance of the network
+CNetwork& _rNetwork = CNetwork::GetInstance();
+
+//A pointer to hold a client instance
+CClient* _pClient = nullptr;
+//A pointer to hold a server instance
+CServer* _pServer = nullptr;
 
 // Main function
 int main(int argc, char **argv)
@@ -104,6 +146,7 @@ void update()
 	//PROBLEM BELLOW
 	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
 	KeyboardUpdate();
+	UpdateNetwork();
 }
 
 //Updated Keyboard Functions v3
@@ -123,45 +166,12 @@ void KeyboardUpdate() {
 	}
 }
 
-//Library Includes
-#include <Windows.h>
-#include <cassert>
-//#include <vld.h>
-#include <thread>
-
-//Local Includes
-#include "consoletools.h"
-#include "network.h"
-#include "client.h"
-#include "server.h"
-#include "InputLineBuffer.h"
-#include <functional>
-
-// make sure the winsock lib is included...
-#pragma comment(lib,"ws2_32.lib")
-
-void NetworkMain()
+void StartNetwork()
 {
-	char* _pcPacketData = 0; //A local buffer to receive packet data info
 	_pcPacketData = new char[MAX_MESSAGE_LENGTH];
 	strcpy_s(_pcPacketData, strlen("") + 1, "");
 
-	char _cIPAddress[MAX_ADDRESS_LENGTH]; // An array to hold the IP Address as a string
-										  //ZeroMemory(&_cIPAddress, strlen(_cIPAddress));
-
-	unsigned char _ucChoice;
-	EEntityType _eNetworkEntityType;
-	CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
-	std::thread _ClientReceiveThread, _ServerReceiveThread;
-
-	//Get the instance of the network
-	CNetwork& _rNetwork = CNetwork::GetInstance();
 	_rNetwork.StartUp();
-
-	//A pointer to hold a client instance
-	CClient* _pClient = nullptr;
-	//A pointer to hold a server instance
-	CServer* _pServer = nullptr;
 
 	// query, is this to be a client or a server?
 	_ucChoice = QueryOption("Do you want to run a client or server (C/S)?", "CS");
@@ -208,9 +218,10 @@ void NetworkMain()
 		_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
 
 	}
+}
 
-	while (_rNetwork.IsOnline())
-	{
+void UpdateNetwork() {
+	if (_rNetwork.IsOnline()) {
 		if (_eNetworkEntityType == CLIENT) //if network entity is a client
 		{
 			_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
@@ -267,10 +278,10 @@ void NetworkMain()
 				}
 			}
 		}
+	}
+}
 
-
-	} //End of while network is Online
-
+void ShutDownNetwork() {
 	_ClientReceiveThread.join();
 	_ServerReceiveThread.join();
 
