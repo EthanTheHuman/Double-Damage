@@ -38,6 +38,14 @@ void MainMenu::Init()
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	playMenu.push_back(TempLabel);
 
+	TempLabel = new TextLabel("Host", "fonts/arial.ttf", glm::vec2(100, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	coopMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Join", "fonts/arial.ttf", glm::vec2(300, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	coopMenu.push_back(TempLabel);
+
 	Title = new UISprite("Textures/Cubemap/Title.png", MyCamera, UISpriteShader);
 	Title->SetScale({ 0.3, 0.3, 0.3 });
 	Title->SetTranslation({ 0, 0.5, 0 });
@@ -159,6 +167,8 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 			}
 			if (selection == 1) {
 				//play in miltiplayer
+				menu = COOP;
+				MenuUpdate();
 			}
 			if (selection == 2) {
 				menu = MAIN;
@@ -190,5 +200,11 @@ void MainMenu::MenuUpdate() {
 			playMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 		}
 		playMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	}
+	else if (menu == COOP) {
+		for (int i = 0; i < coopMenu.size(); i++) {
+			playMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		}
+		coopMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
 }

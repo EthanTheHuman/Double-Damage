@@ -29,7 +29,8 @@
 enum Menus {
 	MAIN,
 	PLAY,
-	CONTROL
+	CONTROL,
+	COOP
 };
 
 class MainMenu :
@@ -50,6 +51,7 @@ private:
 	Camera * MyCamera;
 	std::vector<TextLabel*> mainMenu;
 	std::vector<TextLabel*> playMenu;
+	std::vector<TextLabel*> coopMenu;
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
 	Player * _Player;
