@@ -181,6 +181,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 			if (selection == 1) {
 				//play in multiplayer
 				menu = COOP;
+				selection = 0;
 				MenuUpdate();
 			}
 			if (selection == 2) {

@@ -64,6 +64,8 @@ TextLabel * label;
 
 CubeMap * MySkybox;
 
+bool NetworkToggle = false;
+
 unsigned char KeyState[255]; // Global
 
 char* _pcPacketData = 0; //A local buffer to receive packet data info
@@ -161,6 +163,15 @@ void update()
 	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
 	KeyboardUpdate();
 	UpdateNetwork();
+	if (NetworkToggle) {
+		NetworkToggle = false;
+		if ((_rNetwork.IsOnline())) {
+			ShutDownNetwork();
+		}
+		else {
+			StartNetwork();
+		}
+	}
 }
 
 //Updated Keyboard Functions v3
