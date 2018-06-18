@@ -54,6 +54,8 @@ void StartNetwork();
 void UpdateNetwork();
 void ShutDownNetwork();
 void ChangeJoinNames(std::vector<string> _Names);
+void MovePlayerOne(glm::vec3 _NewPos);
+void MoveNetworkPlayer(glm::vec3 _NewPos);
 
 //Global Var
 Camera * MyCamera;
@@ -309,4 +311,9 @@ void ShutDownNetwork() {
 void ChangeJoinNames(std::vector<string> _Names)
 {
 	GameManager::GetInstance()->CurrentSceneClass()->ChangeNames(_Names);
+}
+
+void MovePlayerOne(glm::vec3 _NewPos)
+{
+	GameManager::GetInstance()->CurrentSceneClass()->MovePlayerOne(_NewPos);
 }

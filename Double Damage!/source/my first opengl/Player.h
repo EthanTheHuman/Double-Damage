@@ -14,6 +14,8 @@ public:
 	void Render();
 	void SetRotation(glm::vec3 _rotation);
 	glm::vec3 GetPosition();
+	void SetPosition(glm::vec3 _NewPosition);
+
 private:
 	float speed = 0.05f;
 	Model * PlayerModel;

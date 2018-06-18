@@ -61,3 +61,11 @@ bool Scene::IsColliding(glm::vec3 C1, glm::vec3 C2, float R1, float R2)
 void Scene::ChangeNames(std::vector<std::string> _strings)
 {
 }
+
+void Scene::MovePlayerOne(glm::vec3 _NewPos)
+{
+}
+
+void Scene::MoveNetworkPlayer(glm::vec3 _NewPos)
+{
+}

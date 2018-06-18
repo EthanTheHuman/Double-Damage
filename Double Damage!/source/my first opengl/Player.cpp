@@ -63,3 +63,8 @@ glm::vec3 Player::GetPosition()
 {
 	return m_Direction;
 }
+
+void Player::SetPosition(glm::vec3 _NewPosition)
+{
+	PlayerModel->SetTranslation(_NewPosition);
+}
