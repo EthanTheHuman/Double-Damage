@@ -413,3 +413,21 @@ void MainMenu::ChangeNames(std::vector<std::string> _strings)
 		joinMenu[x + 1]->SetText(_strings[x]);
 	}
 }
+
+void MainMenu::ChangeHostNames(std::vector<std::string> _strings)
+{
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostMenu[0] = TempLabel;
+	for (int x = 1; x < 5; x++)
+	{
+		TempLabel = new TextLabel("Blank Space", "fonts/arial.ttf", glm::vec2(50, (550 - (x * 50))));
+		TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		hostMenu[x] = TempLabel;
+	}
+
+	for (int x = 0; x < _strings.size(); x++)
+	{
+		hostMenu[x + 1]->SetText(_strings[x]);
+	}
+}
