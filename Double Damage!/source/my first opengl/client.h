@@ -56,6 +56,8 @@ public:
 
 	std::vector<std::string> RetreveBroadcast();
 
+	std::vector<std::string> RetrevePlayers();
+
 private:
 	// Question 7 : Broadcast to Detect Servers
 	void ReceiveBroadcastMessages(char* _pcBufferToReceiveData);
@@ -71,6 +73,8 @@ private:
 	char m_cUserName[50];
 	//A workQueue to distribute messages between the main thread and Receive thread.
 	CWorkQueue<std::string>* m_pWorkQueue;
+
+	vector<std::string> ConnectedPlayers;
 
 	//Question 7
 	//A vector to hold all the servers found after broadcasting
