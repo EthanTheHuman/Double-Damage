@@ -52,49 +52,47 @@ void MainMenu::Init()
 
 	//-------------------------------------------------------------------------------------------------------------
 
-	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(100, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	lobbyMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Ready", "fonts/arial.ttf", glm::vec2(300, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	lobbyMenu.push_back(TempLabel);
+
+	//-------------------------------------------------------------------------------------------------------------
+
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(100, 50));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	hostMenu.push_back(TempLabel);
 
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 500));
+	TempLabel = new TextLabel("Ready", "fonts/arial.ttf", glm::vec2(300, 50));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	hostMenu.push_back(TempLabel);
 
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 450));
+	TempLabel = new TextLabel("Start", "fonts/arial.ttf", glm::vec2(600, 50));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	hostMenu.push_back(TempLabel);
 
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 400));
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(150, 400));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	hostMenu.push_back(TempLabel);
+	hostList.push_back(TempLabel);
 
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 350));
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(150, 350));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	hostMenu.push_back(TempLabel);
+	hostList.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(150, 300));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostList.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(150, 250));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	hostList.push_back(TempLabel);
 
 	//-------------------------------------------------------------------------------------------------------------
 
 	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 50));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 100));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 150));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 200));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 250));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 300));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	joinMenu.push_back(TempLabel);
 
@@ -115,6 +113,26 @@ void MainMenu::Init()
 	joinMenu.push_back(TempLabel);
 
 	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 550));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(400, 350));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(400, 400));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(400, 450));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(400, 500));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(400, 550));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	joinMenu.push_back(TempLabel);
 
@@ -187,10 +205,21 @@ void MainMenu::Render()
 		for (int i = 0; i < hostMenu.size(); i++) {
 			hostMenu[i]->Render();
 		}
+		for (int c = 0; c < hostList.size(); c++) {
+			hostList[c]->Render();
+		}
 	}
 	else if (menu == JOIN) {
 		for (int i = 0; i < joinMenu.size(); i++) {
 			joinMenu[i]->Render();
+		}
+	}
+	else if (menu == LOBBY) {
+		for (int i = 0; i < lobbyMenu.size(); i++) {
+			lobbyMenu[i]->Render();
+		}
+		for (int c = 0; c < hostList.size(); c++) {
+			hostList[c]->Render();
 		}
 	}
 }
@@ -214,7 +243,22 @@ MainMenu::~MainMenu()
 void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 	if (KeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS)
 	{
-		if (menu != CONTROL) {
+		if (menu == JOIN)
+		{
+
+		}
+		else if (menu == LOBBY)
+		{
+			if (selection == 0) {
+				selection = 1;
+				MenuUpdate();
+			}
+			else {
+				selection--;
+				MenuUpdate();
+			}
+		}
+		else if (menu != CONTROL) {
 			if (selection == 0) {
 				selection = 2;
 				MenuUpdate();
@@ -227,7 +271,22 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 	}
 	if (KeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS)
 	{
-		if (menu != CONTROL) {
+		if (menu == JOIN)
+		{
+
+		}
+		else if (menu == LOBBY)
+		{
+			if (selection == 1) {
+				selection = 0;
+				MenuUpdate();
+			}
+			else {
+				selection++;
+				MenuUpdate();
+			}
+		}
+		else if (menu != CONTROL) {
 			if (selection == 2) {
 				selection = 0;
 				MenuUpdate();
@@ -329,32 +388,9 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 	}
 	if (KeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
 	{
-		if (menu == HOST || menu == LOBBY) {
-			if (selection == 0) {
-				selection = 4;
-				MenuUpdate();
-			}
-			else {
-				selection--;
-				MenuUpdate();
-			}
-		}
-	}
-		else if (menu == JOIN)
+		if (menu == JOIN)
 		{
-			if (selection == 0) {
-				selection = 10;
-				MenuUpdate();
-			}
-			else {
-				selection--;
-				MenuUpdate();
-			}
-	}
-	if (KeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
-	{
-		if (menu == HOST || menu == LOBBY) {
-			if (selection == 4) {
+			if (selection == 10) {
 				selection = 0;
 				MenuUpdate();
 			}
@@ -364,18 +400,19 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 			}
 		}
 	}
-	else if (menu == JOIN)
-	{
-		if (selection == 10) {
-			selection = 0;
-			MenuUpdate();
-		}
-		else {
-			selection++;
-			MenuUpdate();
+		if (KeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
+		if (menu == JOIN)
+		{
+			if (selection == 0) {
+				selection = 10;
+				MenuUpdate();
+			}
+			else {
+				selection--;
+				MenuUpdate();
+			}
 		}
 	}
-}
 
 void MainMenu::MenuUpdate() {
 	if (menu == MAIN) {
@@ -425,12 +462,12 @@ void MainMenu::ChangeNames(std::vector<std::string> _strings)
 
 void MainMenu::ChangeHostNames(std::vector<std::string> _strings)
 {
-	for (int x = 1; x < hostMenu.size(); x++) {
+	for (int x = 1; x < hostList.size(); x++) {
 		if (x <= _strings.size()) {
-			hostMenu[x]->SetText(_strings[x - 1].c_str());
+			hostList[x]->SetText(_strings[x - 1].c_str());
 		}
 		else {
-			hostMenu[x]->SetText("Empty Slot");
+			hostList[x]->SetText("Empty Slot");
 		}
 	}
 }
