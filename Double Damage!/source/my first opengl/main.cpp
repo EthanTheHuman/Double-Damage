@@ -293,6 +293,11 @@ void ChangeJoinNames(std::vector<string> _Names)
 	GameManager::GetInstance()->CurrentSceneClass()->ChangeNames(_Names);
 }
 
+void ChangeHostNames(std::vector<string> _Names)
+{
+	GameManager::GetInstance()->CurrentSceneClass()->ChangeHostNames(_Names);
+}
+
 void MovePlayerOne(glm::vec3 _NewPos)
 {
 	GameManager::GetInstance()->CurrentSceneClass()->MovePlayerOne(_NewPos);

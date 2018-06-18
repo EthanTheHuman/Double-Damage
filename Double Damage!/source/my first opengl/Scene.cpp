@@ -62,6 +62,10 @@ void Scene::ChangeNames(std::vector<std::string> _strings)
 {
 }
 
+void Scene::ChangeHostNames(std::vector<std::string> _strings)
+{
+}
+
 void Scene::MovePlayerOne(glm::vec3 _NewPos)
 {
 }

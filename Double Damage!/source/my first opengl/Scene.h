@@ -22,6 +22,7 @@ public:
 	virtual void MoveCharacter(unsigned char KeyState[255]);
 	virtual bool IsColliding(glm::vec3, glm::vec3, float, float);
 	virtual void ChangeNames(std::vector<std::string> _strings);
+	virtual void ChangeHostNames(std::vector<std::string> _strings);
 	virtual void MovePlayerOne(glm::vec3 _NewPos);
 	virtual void MoveNetworkPlayer(glm::vec3 _NewPos);
 
