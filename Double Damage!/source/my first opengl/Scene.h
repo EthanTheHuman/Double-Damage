@@ -1,6 +1,7 @@
 #pragma once
 #include "Camera.h"
 #include "Sprite.h"
+#include <vector>
 
 enum SceneTransition {
 	NOTHING,
@@ -20,6 +21,7 @@ public:
 	virtual void Render();
 	virtual void MoveCharacter(unsigned char KeyState[255]);
 	virtual bool IsColliding(glm::vec3, glm::vec3, float, float);
+	virtual void ChangeNames(std::vector<std::string> _strings);
 
 	Camera MyCamera;
 	GLuint MyProgram;

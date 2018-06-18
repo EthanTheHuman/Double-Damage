@@ -53,6 +53,7 @@ void update();
 void StartNetwork();
 void UpdateNetwork();
 void ShutDownNetwork();
+void ChangeJoinNames(std::vector<string> _Names);
 
 //Global Var
 Camera * MyCamera;
@@ -295,4 +296,9 @@ void ShutDownNetwork() {
 	_rNetwork.DestroyInstance();
 	delete[] _pcPacketData;
 	return;
+}
+
+void ChangeJoinNames(std::vector<string> _Names)
+{
+	GameManager::GetInstance()->CurrentSceneClass()->ChangeNames(_Names);
 }
