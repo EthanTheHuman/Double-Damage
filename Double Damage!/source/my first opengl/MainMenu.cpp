@@ -183,7 +183,7 @@ void MainMenu::Render()
 	else if (menu == CONTROL) {
 		Controls->render();
 	}
-	else if (menu == HOST) {
+	else if (menu == HOST || menu == LOBBY) {
 		for (int i = 0; i < hostMenu.size(); i++) {
 			hostMenu[i]->Render();
 		}
@@ -291,7 +291,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		else if (menu == HOST)
 		{
 			if (selection == 0) {
-				menu = PLAY;
+				menu = COOP;
 				Networkmode = 0;
 				MenuUpdate();
 			}
@@ -299,14 +299,23 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		else if (menu == JOIN)
 		{
 			if (selection == 0) {
-				menu = PLAY;
+				menu = COOP;
 				Networkmode = 0;
 				MenuUpdate();
 			}
 			else {
 				if (joinMenu[selection]->ReturnText() != ToString("Empty Slot")) {
 					ServerChosen = selection;
+					menu = LOBBY;
+					selection = 0;
 				}
+			}
+		}
+		else if (menu == LOBBY)
+		{
+			if (selection == 0) {
+				menu = JOIN;
+				MenuUpdate();
 			}
 		}
 	}
@@ -320,7 +329,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 	}
 	if (KeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
 	{
-		if (menu == HOST) {
+		if (menu == HOST || menu == LOBBY) {
 			if (selection == 0) {
 				selection = 4;
 				MenuUpdate();
@@ -344,7 +353,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 	}
 	if (KeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
 	{
-		if (menu == HOST) {
+		if (menu == HOST || menu == LOBBY) {
 			if (selection == 4) {
 				selection = 0;
 				MenuUpdate();
@@ -387,7 +396,7 @@ void MainMenu::MenuUpdate() {
 		}
 		coopMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
-	else if (menu == HOST) {
+	else if (menu == HOST || menu == LOBBY) {
 		for (int i = 0; i < hostMenu.size(); i++) {
 			hostMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 		}
@@ -404,39 +413,24 @@ void MainMenu::MenuUpdate() {
 void MainMenu::ChangeNames(std::vector<std::string> _strings)
 {
 
-	std::vector<TextLabel *> TempList;
-	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	TempList.push_back(TempLabel);
-
-	for (int i = 0; i < 10; i++)
-	{
-		TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, (500 - (i*50))));
-		TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-		TempList.push_back(TempLabel);
+	for (int x = 1; x < joinMenu.size(); x++) {
+		if (x <= _strings.size()) {
+			joinMenu[x]->SetText(_strings[x - 1].c_str());
+		}
+		else {
+			joinMenu[x]->SetText("Empty Slot");
+		}
 	}
-
-
-	for (int x = 0; x < _strings.size(); x++)
-	{
-		TempList[x + 1]->SetText(_strings[x]);
-	}
-
-	for (int i = 0; i < joinMenu.size(); i++)
-	{
-		delete joinMenu[i];
-	}
-	joinMenu.clear();
-	joinMenu = TempList;
 }
 
 void MainMenu::ChangeHostNames(std::vector<std::string> _strings)
 {
 	for (int x = 1; x < hostMenu.size(); x++) {
-		hostMenu[x]->SetText("Empty Slot");
-	}
-	for (int x = 0; x < _strings.size(); x++)
-	{
-		hostMenu[x + 1]->SetText(_strings[x]);
+		if (x <= _strings.size()) {
+			hostMenu[x]->SetText(_strings[x - 1].c_str());
+		}
+		else {
+			hostMenu[x]->SetText("Empty Slot");
+		}
 	}
 }

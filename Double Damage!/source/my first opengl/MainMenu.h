@@ -32,7 +32,8 @@ enum Menus {
 	CONTROL,
 	COOP,
 	HOST,
-	JOIN
+	JOIN,
+	LOBBY
 };
 
 class MainMenu :

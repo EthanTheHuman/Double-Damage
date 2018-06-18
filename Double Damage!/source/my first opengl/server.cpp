@@ -218,7 +218,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 				if (it->first != ToString(m_ClientAddress))
 				{
 					strcpy_s(c, it->second.m_strName.c_str());
-					_packetToSend.Serialize(DATA, c);
+					_packetToSend.Serialize(LOBY, c);
 					SendData(_packetToSend.PacketData);
 				}
 			}

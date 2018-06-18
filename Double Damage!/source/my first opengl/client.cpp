@@ -181,7 +181,7 @@ void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
 {
 	//set a timer on the socket for one second 
 	struct timeval timeValue;
-	timeValue.tv_sec = 5;
+	timeValue.tv_sec = 20;
 	timeValue.tv_usec = 0;
 	setsockopt(m_pClientSocket->GetSocketHandle(), SOL_SOCKET, SO_RCVTIMEO,
 		(char*)&timeValue, sizeof(timeValue));
