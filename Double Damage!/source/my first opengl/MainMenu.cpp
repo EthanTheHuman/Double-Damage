@@ -398,26 +398,19 @@ void MainMenu::MenuUpdate() {
 
 void MainMenu::ChangeNames(std::vector<std::string> _strings)
 {
+
 	std::vector<TextLabel *> TempList;
 	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	TempList.push_back(TempLabel);
 
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 500));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	TempList.push_back(TempLabel);
+	for (int i = 0; i < 10; i++)
+	{
+		TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, (500 - (i*50))));
+		TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		TempList.push_back(TempLabel);
+	}
 
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 450));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	TempList.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 400));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	TempList.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 350));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	TempList.push_back(TempLabel);
 
 	for (int x = 0; x < _strings.size(); x++)
 	{
