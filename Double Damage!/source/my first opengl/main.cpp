@@ -86,6 +86,8 @@ CClient* _pClient = nullptr;
 //A pointer to hold a server instance
 CServer* _pServer = nullptr;
 
+bool ServerChosen = false;
+
 // Main function
 int main(int argc, char **argv)
 {
@@ -166,6 +168,12 @@ void update()
 	else {
 		if (GameManager::GetInstance()->CurrentSceneClass()->Networkmode == 0) {
 			ShutDownNetwork();
+		}
+		if (_eNetworkEntityType == CLIENT) {
+			if (ServerChosen == false) {
+				ServerChosen = _pClient->Broadcast();
+				GameManager::GetInstance()->CurrentSceneClass()->ChangeNames(_pClient->RetreveBroadcast());
+			}
 		}
 	}
 }

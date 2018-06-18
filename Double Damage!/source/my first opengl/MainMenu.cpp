@@ -74,39 +74,7 @@ void MainMenu::Init()
 
 	//-------------------------------------------------------------------------------------------------------------
 
-	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 500));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 450));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 400));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 350));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 300));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 250));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 200));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu.push_back(TempLabel);
-
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 150));
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 50));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	joinMenu.push_back(TempLabel);
 
@@ -114,7 +82,39 @@ void MainMenu::Init()
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	joinMenu.push_back(TempLabel);
 
-	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 50));
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 150));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 200));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 250));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 300));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 350));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 400));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 450));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 500));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	joinMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Empty Slot", "fonts/arial.ttf", glm::vec2(50, 550));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	joinMenu.push_back(TempLabel);
 
@@ -398,16 +398,9 @@ void MainMenu::MenuUpdate() {
 
 void MainMenu::ChangeNames(std::vector<std::string> _strings)
 {
-	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	joinMenu[0] = TempLabel;
-	for (int x = 1; x < 11; x++)
-	{
-		TempLabel = new TextLabel("Blank Space", "fonts/arial.ttf", glm::vec2(50, (550 - (x * 50))));
-		TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-		joinMenu[x] = TempLabel;
+	for (int x = 1; x < joinMenu.size(); x++) {
+		joinMenu[x]->SetText("Empty Slot");
 	}
-	
 	for (int x = 0; x < _strings.size(); x++)
 	{
 		joinMenu[x + 1]->SetText(_strings[x]);
