@@ -51,6 +51,7 @@ public:
 
 	//Qs7 : Broadcast to Detect Servers
 	bool BroadcastForServers();
+	bool Broadcast();
 
 	std::vector<std::string> RetreveBroadcast();
 

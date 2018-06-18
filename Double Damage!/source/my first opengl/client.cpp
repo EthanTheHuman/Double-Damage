@@ -99,15 +99,7 @@ bool CClient::Initialise()
 
 	//Use a boolean flag to determine if a valid server has been chosen by the client or not
 	bool _bServerChosen = false;
-
-	do {
 #pragma region _GETSERVER_
-		unsigned char _ucChoice = QueryOption("Do you want to broadcast for servers or manually connect (B/M)?", "BM");
-
-		switch (_ucChoice)
-		{
-		case 'B':
-		{
 			//Question 7: Broadcast to detect server
 			m_bDoBroadcast = true;
 			m_pClientSocket->EnableBroadcast();
@@ -115,7 +107,6 @@ bool CClient::Initialise()
 			if (m_vecServerAddr.size() == 0)
 			{
 				std::cout << "No Servers Found " << std::endl;
-				continue;
 			}
 			else {
 
@@ -137,30 +128,19 @@ bool CClient::Initialise()
 			}
 			m_bDoBroadcast = false;
 			m_pClientSocket->DisableBroadcast();
-			break;
-		}
-		default:
-		{
-			std::cout << "This is not a valid option" << std::endl;
-			return false;
-			break;
-		}
-		}
 #pragma endregion _GETSERVER_
-
-	} while (_bServerChosen == false);
 
 	//Send a hanshake message to the server as part of the Client's Initialization process.
 	//Step1: Create a handshake packet
 
-	do {
+	/*do {
 		std::cout << "Please enter a username: ";
 		gets_s(_cUserName);
 	} while (_cUserName[0] == 0);
 
 	TPacket _packet;
 	_packet.Serialize(HANDSHAKE, _cUserName);
-	SendData(_packet.PacketData);
+	SendData(_packet.PacketData);*/
 	return true;
 }
 
@@ -189,6 +169,43 @@ bool CClient::BroadcastForServers()
 
 }
 
+bool CClient::Broadcast()
+{
+	char _cServerChosen[5];
+	ZeroMemory(_cServerChosen, 5);
+	unsigned int _uiServerIndex;
+	char _pcTempBuffer[MAX_MESSAGE_LENGTH];
+	bool _bServerChosen = false;
+	m_bDoBroadcast = true;
+	m_pClientSocket->EnableBroadcast();
+	BroadcastForServers();
+	if (m_vecServerAddr.size() == 0)
+	{
+		std::cout << "No Servers Found " << std::endl;
+	}
+	else {
+
+		//Give a list of servers for the user to choose from :
+		for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
+		{
+			std::cout << std::endl << "[" << i << "]" << " SERVER : found at " << ToString(m_vecServerAddr[i]) << std::endl;
+		}
+		std::cout << "Choose a server number to connect to :";
+		gets_s(_cServerChosen);
+
+		_uiServerIndex = atoi(_cServerChosen);
+		m_ServerSocketAddress.sin_family = AF_INET;
+		m_ServerSocketAddress.sin_port = m_vecServerAddr[_uiServerIndex].sin_port;
+		m_ServerSocketAddress.sin_addr.S_un.S_addr = m_vecServerAddr[_uiServerIndex].sin_addr.S_un.S_addr;
+		std::string _strServerAddress = ToString(m_vecServerAddr[_uiServerIndex]);
+		std::cout << "Attempting to connect to server at " << _strServerAddress << std::endl;
+		_bServerChosen = true;
+	}
+	m_bDoBroadcast = false;
+	m_pClientSocket->DisableBroadcast();
+	return _bServerChosen;
+}
+
 std::vector<std::string> CClient::RetreveBroadcast()
 {
 	std::vector<std::string> temp;
@@ -201,9 +218,10 @@ std::vector<std::string> CClient::RetreveBroadcast()
 
 void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
 {
+	m_vecServerAddr.clear();
 	//set a timer on the socket for one second 
 	struct timeval timeValue;
-	timeValue.tv_sec = 1;
+	timeValue.tv_sec = 5;
 	timeValue.tv_usec = 0;
 	setsockopt(m_pClientSocket->GetSocketHandle(), SOL_SOCKET, SO_RCVTIMEO,
 		(char*)&timeValue, sizeof(timeValue));
