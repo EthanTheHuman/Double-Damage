@@ -36,7 +36,7 @@ struct TPacket
 	unsigned short PacketSize;
 
 	//void set_packet(short _x, short _y, WORD _object_type, short _object_index, WORD _param)
-	void Serialize(EMessageType _MessageType, char* _message)
+	void Serialize(EMessageType _MessageType, const char* _message)
 	{
 		
 		MessageType = _MessageType;
@@ -55,7 +55,7 @@ struct TPacket
 		PacketSize = static_cast<unsigned short>(_strToSend.size());
 	}
 	
-	TPacket Deserialize(char* _PacketData)
+	TPacket Deserialize(const char* _PacketData)
 	{
 		std::string _strTemp(_PacketData);
 		std::istringstream iss(_strTemp);
@@ -69,7 +69,7 @@ struct TPacket
 		return *this;
 	}
 
-	const char* ObjectCompresion(glm::vec3 pos)
+	const char* SingleObjectCompresion(glm::vec3 pos)
 	{
 
 		std::ostringstream oss;
@@ -84,7 +84,36 @@ struct TPacket
 		return _pcToSend;
 	}
 
-	glm::vec3 ObjectUnpacking(char* _PacketData)
+	glm::vec3 SingleObjectUnpacking(char* _PacketData)
+	{
+		std::string _strTemp(_PacketData);
+		std::istringstream iss(_strTemp);
+
+		glm::vec3 temp;
+
+		iss >> temp.x;
+		iss >> temp.y;
+		iss >> temp.z;
+
+		return temp;
+	}
+
+	const char* BIGObjectCompresion(glm::vec3 pos)
+	{
+
+		std::ostringstream oss;
+		oss << pos.x;
+		oss << " ";
+		oss << pos.y;
+		oss << " ";
+		oss << pos.z;
+
+		std::string _strToSend = oss.str();
+		const char* _pcToSend = _strToSend.c_str();
+		return _pcToSend;
+	}
+
+	glm::vec3 BIGObjectUnpacking(char* _PacketData)
 	{
 		std::string _strTemp(_PacketData);
 		std::istringstream iss(_strTemp);
@@ -107,6 +136,7 @@ public:
 	virtual void ReceiveData(char* _pcBufferToReceiveData) = 0;
 	virtual void GetRemoteIPAddress(char *_pcSendersIP) = 0;
 	virtual unsigned short GetRemotePort() = 0;
+	virtual void SwitchOff() { m_bOnline = false; };
 	
 protected:
 	//Additional state variable to indicate whether a network entity is online or not

@@ -68,7 +68,7 @@ bool CServer::Initialise()
 
 	//Qs 2: Create the map to hold details of all connected clients
 	m_pConnectedClients = new std::map < std::string, TClientDetails >();
-
+	m_bOnline = true;
 	return true;
 }
 
@@ -122,16 +122,22 @@ bool CServer::SendData(char* _pcDataToSend)
 
 void CServer::ReceiveData(char* _pcBufferToReceiveData)
 {
-
+	struct timeval timeValue;
 	int iSizeOfAdd = sizeof(m_ClientAddress);
 	int _iNumOfBytesReceived;
 	int _iPacketSize;
 
+	
 	//Make a thread local buffer to receive data into
 	char _buffer[MAX_MESSAGE_LENGTH];
 
-	while (true)
+	while (m_bOnline)
 	{
+		timeValue.tv_sec = 15;
+		timeValue.tv_usec = 0;
+		setsockopt(m_pServerSocket->GetSocketHandle(), SOL_SOCKET, SO_RCVTIMEO,
+			(char*)&timeValue, sizeof(timeValue));
+
 		// pull off the packet(s) using recvfrom()
 		_iNumOfBytesReceived = recvfrom(			// pulls a packet from a single source...
 			m_pServerSocket->GetSocketHandle(),						// client-end socket being used to read from
@@ -144,8 +150,8 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 		if (_iNumOfBytesReceived < 0)
 		{
 			int _iError = WSAGetLastError();
-			ErrorRoutines::PrintWSAErrorInfo(_iError);
-			//return false;
+			//ErrorRoutines::PrintWSAErrorInfo(_iError);
+			//return;
 		}
 		else
 		{
@@ -162,6 +168,7 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 		//std::this_thread::yield();
 
 	} //End of while (true)
+	cout << "hello";
 }
 
 void CServer::GetRemoteIPAddress(char *_pcSendersIP)

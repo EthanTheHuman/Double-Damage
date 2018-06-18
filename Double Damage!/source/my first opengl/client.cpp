@@ -364,11 +364,12 @@ void CClient::ProcessData(char* _pcDataReceived)
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 11);
 		std::cout << _packetRecvd.MessageContent << std::endl;
-		break;
+		glm::vec3 temp = _packetRecvd.SingleObjectUnpacking(_packetRecvd.MessageContent);
 
 		TPacket _packet;
-		_packet.Serialize(DATA, _cUserName);
+		_packet.Serialize(DATA, _packet.SingleObjectCompresion(temp));
 		SendData(_packet.PacketData);
+		break;
 	}
 	case KEEPALIVE:
 	{

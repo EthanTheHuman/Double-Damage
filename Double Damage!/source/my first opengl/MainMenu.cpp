@@ -292,6 +292,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		{
 			if (selection == 0) {
 				menu = PLAY;
+				Networkmode = 0;
 				MenuUpdate();
 			}
 		}
@@ -299,6 +300,7 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		{
 			if (selection == 0) {
 				menu = PLAY;
+				Networkmode = 0;
 				MenuUpdate();
 			}
 		}

@@ -141,6 +141,10 @@ void render()
 void update()
 {
 	glutPostRedisplay();
+	//Updated Move Function
+	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
+	KeyboardUpdate();
+	UpdateNetwork();
 	if (!_rNetwork.IsOnline()) {
 		if (GameManager::GetInstance()->CurrentScene == 0)
 		{
@@ -158,10 +162,11 @@ void update()
 			}
 		}
 	}
-	//Updated Move Function
-	GameManager::GetInstance()->CurrentSceneClass()->MoveCharacter(KeyState);
-	KeyboardUpdate();
-	UpdateNetwork();
+	else {
+		if (GameManager::GetInstance()->CurrentSceneClass()->Networkmode == 0) {
+			ShutDownNetwork();
+		}
+	}
 }
 
 //Updated Keyboard Functions v3
@@ -200,7 +205,6 @@ void StartNetwork()
 
 		_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
 		_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
-
 	}
 
 	//Run receive of server also on a separate thread 
@@ -209,7 +213,6 @@ void StartNetwork()
 
 		_pServer = static_cast<CServer*>(_rNetwork.GetInstance().GetNetworkEntity());
 		_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
-
 	}
 }
 
@@ -275,13 +278,21 @@ void UpdateNetwork() {
 }
 
 void ShutDownNetwork() {
-	_ClientReceiveThread.join();
-	_ServerReceiveThread.join();
-
+	if (_pClient != nullptr) {
+		_pClient->SwitchOff();
+		if (_ClientReceiveThread.joinable()) {
+			_ClientReceiveThread.join();
+		}
+	}
+	if (_pServer != nullptr) {
+		_pServer->SwitchOff();
+		if (_ServerReceiveThread.joinable()) {
+			_ServerReceiveThread.join();
+		}
+	}
 	//Shut Down the Network
 	_rNetwork.ShutDown();
 	_rNetwork.DestroyInstance();
-
 	delete[] _pcPacketData;
 	return;
 }
