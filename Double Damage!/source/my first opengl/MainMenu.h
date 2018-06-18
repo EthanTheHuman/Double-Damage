@@ -58,6 +58,7 @@ private:
 	std::vector<TextLabel*> playMenu;
 	std::vector<TextLabel*> coopMenu;
 	std::vector<TextLabel*> hostMenu;
+	std::vector<TextLabel*> hostList;
 	std::vector<TextLabel*> joinMenu;
 	CubeMap * MySkybox;
 	ShaderLoader shaderloader;
