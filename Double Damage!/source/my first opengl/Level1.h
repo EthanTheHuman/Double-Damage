@@ -42,6 +42,7 @@ public:
 	void Update();
 	void MoveCharacter(unsigned char KeyState[255]);
 	void MenuUpdate();
+	void MovePlayerOne(glm::vec3 _NewPosition);
 
 private:
 	// List of objects

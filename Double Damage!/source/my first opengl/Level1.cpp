@@ -291,3 +291,8 @@ void Level1::MenuUpdate() {
 		pauseMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
 }
+
+void Level1::MovePlayerOne(glm::vec3 _NewPosition)
+{
+	_Player->SetPosition(_NewPosition);
+}
