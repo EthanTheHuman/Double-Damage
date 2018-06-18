@@ -398,27 +398,45 @@ void MainMenu::MenuUpdate() {
 
 void MainMenu::ChangeNames(std::vector<std::string> _strings)
 {
-	for (int x = 1; x < joinMenu.size(); x++) {
-		joinMenu[x]->SetText("Empty Slot");
-	}
+	std::vector<TextLabel *> TempList;
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	TempList.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 500));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	TempList.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 450));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	TempList.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 400));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	TempList.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Player Name", "fonts/arial.ttf", glm::vec2(50, 350));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	TempList.push_back(TempLabel);
+
 	for (int x = 0; x < _strings.size(); x++)
 	{
-		joinMenu[x + 1]->SetText(_strings[x]);
+		TempList[x + 1]->SetText(_strings[x]);
 	}
+
+	for (int i = 0; i < joinMenu.size(); i++)
+	{
+		delete joinMenu[i];
+	}
+	joinMenu.clear();
+	joinMenu = TempList;
 }
 
 void MainMenu::ChangeHostNames(std::vector<std::string> _strings)
 {
-	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(50, 550));
-	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	hostMenu[0] = TempLabel;
-	for (int x = 1; x < 5; x++)
-	{
-		TempLabel = new TextLabel("Blank Space", "fonts/arial.ttf", glm::vec2(50, (550 - (x * 50))));
-		TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-		hostMenu[x] = TempLabel;
+	for (int x = 1; x < hostMenu.size(); x++) {
+		hostMenu[x]->SetText("Empty Slot");
 	}
-
 	for (int x = 0; x < _strings.size(); x++)
 	{
 		hostMenu[x + 1]->SetText(_strings[x]);
