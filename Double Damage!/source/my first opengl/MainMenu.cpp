@@ -54,6 +54,16 @@ void MainMenu::Init()
 
 	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(100, 50));
 	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	lobbyMenu.push_back(TempLabel);
+
+	TempLabel = new TextLabel("Ready", "fonts/arial.ttf", glm::vec2(300, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	lobbyMenu.push_back(TempLabel);
+
+	//-------------------------------------------------------------------------------------------------------------
+
+	TempLabel = new TextLabel("Back", "fonts/arial.ttf", glm::vec2(100, 50));
+	TempLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 	hostMenu.push_back(TempLabel);
 
 	TempLabel = new TextLabel("Ready", "fonts/arial.ttf", glm::vec2(300, 50));
@@ -204,6 +214,14 @@ void MainMenu::Render()
 			joinMenu[i]->Render();
 		}
 	}
+	else if (menu == LOBBY) {
+		for (int i = 0; i < lobbyMenu.size(); i++) {
+			lobbyMenu[i]->Render();
+		}
+		for (int c = 0; c < hostList.size(); c++) {
+			hostList[c]->Render();
+		}
+	}
 }
 
 
@@ -229,6 +247,17 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		{
 
 		}
+		else if (menu == LOBBY)
+		{
+			if (selection == 0) {
+				selection = 1;
+				MenuUpdate();
+			}
+			else {
+				selection--;
+				MenuUpdate();
+			}
+		}
 		else if (menu != CONTROL) {
 			if (selection == 0) {
 				selection = 2;
@@ -245,6 +274,17 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 		if (menu == JOIN)
 		{
 
+		}
+		else if (menu == LOBBY)
+		{
+			if (selection == 1) {
+				selection = 0;
+				MenuUpdate();
+			}
+			else {
+				selection++;
+				MenuUpdate();
+			}
 		}
 		else if (menu != CONTROL) {
 			if (selection == 2) {
