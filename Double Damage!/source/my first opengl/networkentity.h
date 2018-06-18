@@ -23,6 +23,7 @@ enum EMessageType : unsigned char
 {
 	HANDSHAKE,
 	DATA,
+	LOBY,
 	KEEPALIVE,
 	COMMAND,
 	BROADCAST

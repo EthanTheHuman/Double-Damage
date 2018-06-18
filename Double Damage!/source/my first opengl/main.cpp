@@ -164,6 +164,7 @@ void update()
 			{
 				_eNetworkEntityType = CLIENT;
 				StartNetwork();
+				_pClient->Broadcast();
 			}
 		}
 	}
@@ -173,8 +174,10 @@ void update()
 		}
 		if (_eNetworkEntityType == CLIENT) {
 			if (ServerChosen == false) {
-				ServerChosen = _pClient->Broadcast();
 				GameManager::GetInstance()->CurrentSceneClass()->ChangeNames(_pClient->RetreveBroadcast());
+				if (GameManager::GetInstance()->CurrentSceneClass()->ServerChosen != 0) {
+					ServerChosen = _pClient->HandShake(GameManager::GetInstance()->CurrentSceneClass()->ServerChosen - 1);
+				}
 			}
 		}
 	}
@@ -232,25 +235,6 @@ void UpdateNetwork() {
 		if (_eNetworkEntityType == CLIENT) //if network entity is a client
 		{
 			_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
-
-			//Prepare for reading input from the user
-			_InputBuffer.PrintToScreenTop();
-
-			//Get input from the user
-			if (_InputBuffer.Update())
-			{
-				// we completed a message, lets send it:
-				int _iMessageSize = static_cast<int>(strlen(_InputBuffer.GetString()));
-
-				//Put the message into a packet structure
-				TPacket _packet;
-				_packet.Serialize(DATA, const_cast<char*>(_InputBuffer.GetString())); //Hardcoded username; change to name as taken in via user input.
-				_rNetwork.GetInstance().GetNetworkEntity()->SendData(_packet.PacketData);
-				//Clear the Input Buffer
-				_InputBuffer.ClearString();
-				//Print To Screen Top
-				_InputBuffer.PrintToScreenTop();
-			}
 			if (_pClient != nullptr)
 			{
 				//If the message queue is empty 
@@ -270,15 +254,11 @@ void UpdateNetwork() {
 		}
 		else //if you are running a server instance
 		{
-
 			if (_pServer != nullptr)
 			{
 				if (!_pServer->GetWorkQueue()->empty())
 				{
 					_rNetwork.GetInstance().GetNetworkEntity()->GetRemoteIPAddress(_cIPAddress);
-					//std::cout << _cIPAddress
-					//<< ":" << _rNetwork.GetInstance().GetNetworkEntity()->GetRemotePort() << "> " << _pcPacketData << std::endl;
-
 					//Retrieve off a message from the queue and process it
 					_pServer->GetWorkQueue()->pop(_pcPacketData);
 					_pServer->ProcessData(_pcPacketData);

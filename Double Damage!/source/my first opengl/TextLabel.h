@@ -36,7 +36,7 @@ public:
 	void SetColor(glm::vec3 newColor) { color = newColor; };
 	void SetScale(GLfloat newScale) { scale = newScale; };
 	void SetPosition(glm::vec2 newPosition) { position = newPosition; };
-
+	std::string ReturnText() { return text; }
 private:
 	std::string text;
 	GLfloat scale;

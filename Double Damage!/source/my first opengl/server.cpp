@@ -195,8 +195,9 @@ void CServer::ProcessData(char* _pcDataReceived)
 	case HANDSHAKE:
 	{
 		std::cout << "Server received a handshake message " << std::endl;
-		if (AddClient(_packetRecvd.MessageContent))
+		if (AddClient(ToString(m_ClientAddress)))
 		{
+			cout << "HandShake Successful" << endl;
 			sockaddr_in TempAddress = m_ClientAddress;
 			_packetToSend.Serialize(HANDSHAKE, "Handshake Successful");
 			SendData(_packetToSend.PacketData);
@@ -205,15 +206,13 @@ void CServer::ProcessData(char* _pcDataReceived)
 				if (it->first != ToString(TempAddress))
 				{
 					m_ClientAddress = it->second.m_ClientAddress;
-					std::string stringtemp = "Client" + ToString(_packetRecvd.MessageContent) + " Connected";
+					std::string stringtemp = ToString(_packetRecvd.MessageContent);
 					strcpy_s(c, stringtemp.c_str());
-					_packetToSend.Serialize(DATA, c);
+					_packetToSend.Serialize(LOBY, c);
 					SendData(_packetToSend.PacketData);
 				}
 			}
 			m_ClientAddress = TempAddress;
-			_packetToSend.Serialize(DATA, "SERVER> Connected Users are:");
-			SendData(_packetToSend.PacketData);
 			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 			{
 				if (it->first != ToString(m_ClientAddress))
@@ -226,6 +225,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 		}
 		else
 		{
+			cout << "HandShake Failed" << endl;
 			_packetToSend.Serialize(HANDSHAKE, "Handshake Failed");
 			SendData(_packetToSend.PacketData);
 		}

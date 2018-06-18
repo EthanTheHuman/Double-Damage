@@ -41,7 +41,6 @@ public:
 	int EnableBroadcast();
 	int DisableBroadcast();
 
-private:
 	//Get the local IP Address to which the socket is bound to
 	std::string GetLocalAddress(); //Used for printing the local addrerss in the console window.
 private:

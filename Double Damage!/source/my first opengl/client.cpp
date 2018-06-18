@@ -98,7 +98,6 @@ bool CClient::Initialise()
 	m_bOnline = true;
 
 	//Use a boolean flag to determine if a valid server has been chosen by the client or not
-	bool _bServerChosen = false;
 #pragma region _GETSERVER_
 			//Question 7: Broadcast to detect server
 			m_bDoBroadcast = true;
@@ -108,39 +107,9 @@ bool CClient::Initialise()
 			{
 				std::cout << "No Servers Found " << std::endl;
 			}
-			else {
-
-				//Give a list of servers for the user to choose from :
-				for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
-				{
-					std::cout << std::endl << "[" << i << "]" << " SERVER : found at " << ToString(m_vecServerAddr[i]) << std::endl;
-				}
-				std::cout << "Choose a server number to connect to :";
-				gets_s(_cServerChosen);
-
-				_uiServerIndex = atoi(_cServerChosen);
-				m_ServerSocketAddress.sin_family = AF_INET;
-				m_ServerSocketAddress.sin_port = m_vecServerAddr[_uiServerIndex].sin_port;
-				m_ServerSocketAddress.sin_addr.S_un.S_addr = m_vecServerAddr[_uiServerIndex].sin_addr.S_un.S_addr;
-				std::string _strServerAddress = ToString(m_vecServerAddr[_uiServerIndex]);
-				std::cout << "Attempting to connect to server at " << _strServerAddress << std::endl;
-				_bServerChosen = true;
-			}
 			m_bDoBroadcast = false;
 			m_pClientSocket->DisableBroadcast();
 #pragma endregion _GETSERVER_
-
-	//Send a hanshake message to the server as part of the Client's Initialization process.
-	//Step1: Create a handshake packet
-
-	/*do {
-		std::cout << "Please enter a username: ";
-		gets_s(_cUserName);
-	} while (_cUserName[0] == 0);
-
-	TPacket _packet;
-	_packet.Serialize(HANDSHAKE, _cUserName);
-	SendData(_packet.PacketData);*/
 	return true;
 }
 
@@ -171,11 +140,6 @@ bool CClient::BroadcastForServers()
 
 bool CClient::Broadcast()
 {
-	char _cServerChosen[5];
-	ZeroMemory(_cServerChosen, 5);
-	unsigned int _uiServerIndex;
-	char _pcTempBuffer[MAX_MESSAGE_LENGTH];
-	bool _bServerChosen = false;
 	m_bDoBroadcast = true;
 	m_pClientSocket->EnableBroadcast();
 	BroadcastForServers();
@@ -183,27 +147,24 @@ bool CClient::Broadcast()
 	{
 		std::cout << "No Servers Found " << std::endl;
 	}
-	else {
-
-		//Give a list of servers for the user to choose from :
-		for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
-		{
-			std::cout << std::endl << "[" << i << "]" << " SERVER : found at " << ToString(m_vecServerAddr[i]) << std::endl;
-		}
-		std::cout << "Choose a server number to connect to :";
-		gets_s(_cServerChosen);
-
-		_uiServerIndex = atoi(_cServerChosen);
-		m_ServerSocketAddress.sin_family = AF_INET;
-		m_ServerSocketAddress.sin_port = m_vecServerAddr[_uiServerIndex].sin_port;
-		m_ServerSocketAddress.sin_addr.S_un.S_addr = m_vecServerAddr[_uiServerIndex].sin_addr.S_un.S_addr;
-		std::string _strServerAddress = ToString(m_vecServerAddr[_uiServerIndex]);
-		std::cout << "Attempting to connect to server at " << _strServerAddress << std::endl;
-		_bServerChosen = true;
-	}
 	m_bDoBroadcast = false;
 	m_pClientSocket->DisableBroadcast();
-	return _bServerChosen;
+	return true;
+}
+
+bool CClient::HandShake(int server)
+{
+	//Send a hanshake message to the server as part of the Client's Initialization process.
+	unsigned int _uiServerIndex = server;
+	m_ServerSocketAddress.sin_family = AF_INET;
+	m_ServerSocketAddress.sin_port = m_vecServerAddr[_uiServerIndex].sin_port;
+	m_ServerSocketAddress.sin_addr.S_un.S_addr = m_vecServerAddr[_uiServerIndex].sin_addr.S_un.S_addr;
+	std::string _strServerAddress = ToString(m_vecServerAddr[_uiServerIndex]);
+
+	TPacket _packet;
+	_packet.Serialize(HANDSHAKE, "Hello");
+	SendData(_packet.PacketData);
+	return true;
 }
 
 std::vector<std::string> CClient::RetreveBroadcast()
@@ -218,7 +179,6 @@ std::vector<std::string> CClient::RetreveBroadcast()
 
 void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
 {
-	m_vecServerAddr.clear();
 	//set a timer on the socket for one second 
 	struct timeval timeValue;
 	timeValue.tv_sec = 5;
@@ -384,9 +344,9 @@ void CClient::ProcessData(char* _pcDataReceived)
 		std::cout << _packetRecvd.MessageContent << std::endl;
 		glm::vec3 temp = _packetRecvd.SingleObjectUnpacking(_packetRecvd.MessageContent);
 
-		TPacket _packet;
-		_packet.Serialize(DATA, _packet.SingleObjectCompresion(temp));
-		SendData(_packet.PacketData);
+		//TPacket _packet;
+		//_packet.Serialize(DATA, _packet.SingleObjectCompresion(temp));
+		//SendData(_packet.PacketData);
 		break;
 	}
 	case KEEPALIVE:

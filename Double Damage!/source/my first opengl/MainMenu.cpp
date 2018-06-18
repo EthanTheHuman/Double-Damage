@@ -303,6 +303,11 @@ void MainMenu::MoveCharacter(unsigned char KeyState[255]) {
 				Networkmode = 0;
 				MenuUpdate();
 			}
+			else {
+				if (joinMenu[selection]->ReturnText() != ToString("Empty Slot")) {
+					ServerChosen = selection;
+				}
+			}
 		}
 	}
 	if (KeyState[(unsigned char)'\x1b'] == INPUT_FIRST_PRESS)
