@@ -185,6 +185,11 @@ void update()
 				}
 			}
 		}
+		else if (_eNetworkEntityType == SERVER) {
+			if (GameManager::GetInstance()->CurrentSceneClass()->GameStart == false) {
+				GameManager::GetInstance()->CurrentSceneClass()->ChangeHostNames(_pServer->RetrevePlayers());
+			}
+		}
 	}
 }
 

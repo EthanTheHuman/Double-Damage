@@ -56,10 +56,10 @@ public:
 	virtual unsigned short GetRemotePort();
 
 	CWorkQueue<char*>* GetWorkQueue();
+	std::vector<std::string> RetrevePlayers();
 	//Qs 2: Function to add clients to the map.
 private:
 	bool AddClient(std::string _strClientName);
-
 
 
 private:

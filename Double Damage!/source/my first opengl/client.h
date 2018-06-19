@@ -57,11 +57,12 @@ public:
 	std::vector<std::string> RetreveBroadcast();
 
 	std::vector<std::string> RetrevePlayers();
+	void Ready();
 
 private:
 	// Question 7 : Broadcast to Detect Servers
 	void ReceiveBroadcastMessages(char* _pcBufferToReceiveData);
-
+	int CompareNames(string);
 private:
 	//A buffer to contain all packet data for the client
 	char* m_pcPacketData;

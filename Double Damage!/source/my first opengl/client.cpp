@@ -169,16 +169,25 @@ bool CClient::HandShake(int server)
 
 std::vector<std::string> CClient::RetreveBroadcast()
 {
-	std::vector<std::string> temp;
-	for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
-	{
-		temp.push_back(ToString(m_vecServerAddr[i]));
+	if (!m_vecServerAddr.empty()) {
+		std::vector<std::string> temp;
+		for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
+		{
+			temp.push_back(ToString(m_vecServerAddr[i]));
+		}
+		return temp;
 	}
-	return temp;
 }
 
 std::vector<std::string> CClient::RetrevePlayers() {
 	return ConnectedPlayers;
+}
+
+void CClient::Ready()
+{
+	TPacket _packet;
+	_packet.Serialize(LOBY, "Ready");
+	SendData(_packet.PacketData);
 }
 
 void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
@@ -233,6 +242,16 @@ void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
 			m_vecServerAddr.push_back(m_ServerSocketAddress);
 		}
 	}//End of while loop
+}
+
+int CClient::CompareNames(string name)
+{
+	for (int i = 0; i < ConnectedPlayers.size(); i++) {
+		if (ToString(ConnectedPlayers[i]) == name) {
+			return i;
+		}
+	}
+	return 0;
 }
 
 bool CClient::SendData(char* _pcDataToSend)
@@ -355,19 +374,7 @@ void CClient::ProcessData(char* _pcDataReceived)
 	}
 	case LOBY:
 	{
-		if (ConnectedPlayers.empty()) {
-			ConnectedPlayers.push_back(ToString(_packetRecvd.MessageContent));
-		}
-		else {
-			for (int i = 0; i < ConnectedPlayers.size(); i++) {
-				if (ConnectedPlayers[i] == ToString(_packetRecvd.MessageContent)) {
-					ConnectedPlayers.erase(ConnectedPlayers.begin() + i);
-				}
-				else {
-					ConnectedPlayers.push_back(ToString(_packetRecvd.MessageContent));
-				}
-			}
-		}
+		ConnectedPlayers.push_back(ToString(_packetRecvd.MessageContent));
 	}
 	case KEEPALIVE:
 	{

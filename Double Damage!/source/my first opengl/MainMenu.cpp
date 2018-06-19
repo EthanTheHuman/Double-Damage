@@ -201,7 +201,7 @@ void MainMenu::Render()
 	else if (menu == CONTROL) {
 		Controls->render();
 	}
-	else if (menu == HOST || menu == LOBBY) {
+	else if (menu == HOST) {
 		for (int i = 0; i < hostMenu.size(); i++) {
 			hostMenu[i]->Render();
 		}
@@ -433,7 +433,7 @@ void MainMenu::MenuUpdate() {
 		}
 		coopMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
-	else if (menu == HOST || menu == LOBBY) {
+	else if (menu == HOST) {
 		for (int i = 0; i < hostMenu.size(); i++) {
 			hostMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 		}
@@ -445,29 +445,39 @@ void MainMenu::MenuUpdate() {
 		}
 		joinMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	}
+	else if (menu == LOBBY)
+	{
+		for (int i = 0; i < lobbyMenu.size(); i++) {
+			lobbyMenu[i]->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+		}
+		lobbyMenu[selection]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	}
 }
 
 void MainMenu::ChangeNames(std::vector<std::string> _strings)
 {
-
-	for (int x = 1; x < joinMenu.size(); x++) {
-		if (x <= _strings.size()) {
-			joinMenu[x]->SetText(_strings[x - 1].c_str());
-		}
-		else {
-			joinMenu[x]->SetText("Empty Slot");
+	if (_strings.size() != 0) {
+		for (int x = 1; x < joinMenu.size(); x++) {
+			if (x <= _strings.size()) {
+				joinMenu[x]->SetText(_strings[x - 1].c_str());
+			}
+			else {
+				joinMenu[x]->SetText("Empty Slot");
+			}
 		}
 	}
 }
 
 void MainMenu::ChangeHostNames(std::vector<std::string> _strings)
 {
-	for (int x = 1; x < hostList.size(); x++) {
-		if (x <= _strings.size()) {
-			hostList[x]->SetText(_strings[x - 1].c_str());
-		}
-		else {
-			hostList[x]->SetText("Empty Slot");
+	if (_strings.size() != 0) {
+		for (int x = 0; x < hostList.size(); x++) {
+			if (x <= _strings.size() - 1) {
+				hostList[x]->SetText(_strings[x].c_str());
+			}
+			else {
+				hostList[x]->SetText("Empty Slot");
+			}
 		}
 	}
 }

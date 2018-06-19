@@ -201,26 +201,26 @@ void CServer::ProcessData(char* _pcDataReceived)
 			sockaddr_in TempAddress = m_ClientAddress;
 			_packetToSend.Serialize(HANDSHAKE, "Handshake Successful");
 			SendData(_packetToSend.PacketData);
+			//broadcast to everyone
 			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 			{
 				if (it->first != ToString(TempAddress))
 				{
 					m_ClientAddress = it->second.m_ClientAddress;
-					std::string stringtemp = ToString(ToString(m_ClientAddress));
-					strcpy_s(c, stringtemp.c_str());
+					strcpy_s(c, ToString(TempAddress).c_str());
 					_packetToSend.Serialize(LOBY, c);
 					SendData(_packetToSend.PacketData);
 				}
 			}
 			m_ClientAddress = TempAddress;
+			//broadcast to client
+			_packetToSend.Serialize(LOBY, "Host");
+			SendData(_packetToSend.PacketData);
 			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 			{
-				if (it->first != ToString(m_ClientAddress))
-				{
-					strcpy_s(c, it->second.m_strName.c_str());
-					_packetToSend.Serialize(LOBY, c);
-					SendData(_packetToSend.PacketData);
-				}
+				strcpy_s(c, it->second.m_strName.c_str());
+				_packetToSend.Serialize(LOBY, c);
+				SendData(_packetToSend.PacketData);
 			}
 		}
 		else
@@ -251,6 +251,22 @@ void CServer::ProcessData(char* _pcDataReceived)
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		break;
 	}
+	case LOBY:
+	{
+		if (ToString(_packetRecvd.MessageContent) == ToString(" Ready")) {
+			sockaddr_in TempAddress = m_ClientAddress;
+			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
+			{
+				if (it->first != ToString(TempAddress))
+				{
+					m_ClientAddress = it->second.m_ClientAddress;
+					strcpy_s(c, ToString(TempAddress).c_str());
+					_packetToSend.Serialize(LOBY, c);
+					SendData(_packetToSend.PacketData);
+				}
+			}
+		}
+	}
 	case BROADCAST:
 	{
 		std::cout << "Received a broadcast packet" << std::endl;
@@ -269,4 +285,15 @@ void CServer::ProcessData(char* _pcDataReceived)
 CWorkQueue<char*>* CServer::GetWorkQueue()
 {
 	return m_pWorkQueue;
+}
+
+std::vector<std::string> CServer::RetrevePlayers()
+{
+	std::vector<std::string> temp;
+	temp.push_back("Host");
+	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
+	{
+		temp.push_back(it->second.m_strName);
+	}
+	return temp;
 }
