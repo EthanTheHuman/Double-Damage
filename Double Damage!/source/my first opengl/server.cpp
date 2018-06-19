@@ -206,7 +206,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 				if (it->first != ToString(TempAddress))
 				{
 					m_ClientAddress = it->second.m_ClientAddress;
-					std::string stringtemp = ToString(_packetRecvd.MessageContent);
+					std::string stringtemp = ToString(ToString(m_ClientAddress));
 					strcpy_s(c, stringtemp.c_str());
 					_packetToSend.Serialize(LOBY, c);
 					SendData(_packetToSend.PacketData);
