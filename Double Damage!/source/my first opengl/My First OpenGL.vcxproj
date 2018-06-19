@@ -146,6 +146,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="network.cpp" />
     <ClCompile Include="networkmain.cpp" />
+    <ClCompile Include="OtherPlayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="server.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="network.h" />
     <ClInclude Include="networkentity.h" />
+    <ClInclude Include="OtherPlayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="server.h" />
