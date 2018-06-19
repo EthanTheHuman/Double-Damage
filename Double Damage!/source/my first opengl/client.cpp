@@ -177,6 +177,10 @@ std::vector<std::string> CClient::RetreveBroadcast()
 	return temp;
 }
 
+std::vector<std::string> CClient::RetrevePlayers() {
+	return ConnectedPlayers;
+}
+
 void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
 {
 	//set a timer on the socket for one second 
@@ -348,6 +352,22 @@ void CClient::ProcessData(char* _pcDataReceived)
 		//_packet.Serialize(DATA, _packet.SingleObjectCompresion(temp));
 		//SendData(_packet.PacketData);
 		break;
+	}
+	case LOBY:
+	{
+		if (ConnectedPlayers.empty()) {
+			ConnectedPlayers.push_back(ToString(_packetRecvd.MessageContent));
+		}
+		else {
+			for (int i = 0; i < ConnectedPlayers.size(); i++) {
+				if (ConnectedPlayers[i] == ToString(_packetRecvd.MessageContent)) {
+					ConnectedPlayers.erase(ConnectedPlayers.begin() + i);
+				}
+				else {
+					ConnectedPlayers.push_back(ToString(_packetRecvd.MessageContent));
+				}
+			}
+		}
 	}
 	case KEEPALIVE:
 	{

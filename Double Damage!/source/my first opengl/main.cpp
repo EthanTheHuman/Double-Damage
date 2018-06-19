@@ -179,6 +179,11 @@ void update()
 					ServerChosen = _pClient->HandShake(GameManager::GetInstance()->CurrentSceneClass()->ServerChosen - 1);
 				}
 			}
+			else {
+				if (GameManager::GetInstance()->CurrentSceneClass()->GameStart == false) {
+					GameManager::GetInstance()->CurrentSceneClass()->ChangeHostNames(_pClient->RetrevePlayers());
+				}
+			}
 		}
 	}
 }
@@ -274,12 +279,14 @@ void ShutDownNetwork() {
 		if (_ClientReceiveThread.joinable()) {
 			_ClientReceiveThread.join();
 		}
+		_pClient = nullptr;
 	}
 	if (_pServer != nullptr) {
 		_pServer->SwitchOff();
 		if (_ServerReceiveThread.joinable()) {
 			_ServerReceiveThread.join();
 		}
+		_pServer = nullptr;
 	}
 	//Shut Down the Network
 	_rNetwork.ShutDown();

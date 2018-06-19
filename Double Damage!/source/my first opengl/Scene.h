@@ -31,6 +31,7 @@ public:
 	SceneTransition nextScene = NOTHING;
 	bool b_pauseMenu = false;
 	int Networkmode = 0;
-	int ServerChosen = 0;
+	bool ServerChosen = false;
+	bool GameStart = false;
 };
 
